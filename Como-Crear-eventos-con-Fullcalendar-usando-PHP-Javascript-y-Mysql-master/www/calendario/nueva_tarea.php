@@ -25,15 +25,6 @@ $id_usuario = $fila['id_usuario']; // Obtiene el ID de usuario
 $evento = $_POST["evento"];
 $descripcion = $_POST["descripcion"];
 $color = $_POST["color"];
-// $fecha_fin = $_POST["fecha_fin"];
-// $fecha_inicio = $_POST["fecha_inicio"];
-$f_inicio          = $_REQUEST['fecha_inicio'];
-$fecha_inicio      = date('Y-m-d', strtotime($f_inicio)); 
-
-$f_fin             = $_REQUEST['fecha_fin']; 
-$seteando_f_final  = date('Y-m-d', strtotime($f_fin));  
-$fecha_fin1        = strtotime($seteando_f_final."+ 1 days");
-$fecha_fin         = date('Y-m-d', ($fecha_fin1)); 
 $id_etiqueta = $_POST["id_etiqueta"];
 $id_estado = $_POST["id_estado"];
 
@@ -69,16 +60,29 @@ if (isset($_FILES['fotografia']) && isset($_FILES['fotografia']['name'])) {
 // Si el estado es "Pendiente", establece la fecha de finalización como NULL
 if ($id_estado == 'pendiente') {
     $fecha_fin = NULL;
+} else {
+    // Recibe las fechas del formulario y las formatea adecuadamente
+    $f_inicio = $_REQUEST['fecha_inicio'];
+    $fecha_inicio = date('Y-m-d\TH:i:s', strtotime($f_inicio));
+
+    $f_fin = $_REQUEST['fecha_fin']; 
+    $seteando_f_final = date('Y-m-d\TH:i:s', strtotime($f_fin));  
+    $fecha_fin1 = strtotime($seteando_f_final."+ 1 days");
+    $fecha_fin = date('Y-m-d\TH:i:s', $fecha_fin1); 
 }
 
 // Insertar evento en la base de datos
-$insertardos = "INSERT INTO eventoscalendar (archivos, color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_usuario, id_estado) VALUES ('$nombreCompleto', '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_usuario', '$id_estado')";
-$resultadoNuevoEvento =mysqli_query($con, $insertardos); // Ejecuta la consulta SQL para insertar el evento en la base de datos
-// echo $insertardos; // Imprime el nombre del archivo subido (puede ser útil para depurar)
+$insertardos = "INSERT INTO eventoscalendar (archivos, color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_estado) VALUES ('$nombreCompleto', '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_estado')";
+$resultadoNuevoEvento = mysqli_query($con, $insertardos); // Ejecuta la consulta SQL para insertar el evento en la base de datos
+
+$id_evento = mysqli_insert_id($con);
+// echo $id_evento;
+$insert2 = "INSERT INTO usuario_evento (id_evento, id_usuario) VALUES ('$id_evento', '$id_usuario')";
+$resultadoInsert2 = mysqli_query($con, $insert2);
+
 if ($resultadoNuevoEvento) {
     header("Location: calendario.php?e=1");
-  }  // Redirige a la página principal después de completar la inserción del evento
-  if (!$resultadoNuevoEvento) {
+} else {
     echo "Error al insertar el evento: " . mysqli_error($con);
 }
 ?>

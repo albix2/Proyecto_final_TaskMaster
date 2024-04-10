@@ -21,7 +21,9 @@ $fila = mysqli_fetch_assoc($res);
     <title>Mi Calendario:: Ing. Urian Viera</title>
     <link rel="stylesheet" type="text/css" href="../css/fullcalendar.min.css">
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
@@ -33,94 +35,53 @@ $fila = mysqli_fetch_assoc($res);
     
 </head>
 <body>
-<header class="container-fluid">
-       
-<nav class="navegador">
-            <img class="icono" src="../imagenes/tasksmart.png" alt="Logo de 3Dreams">
-            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="index.php?pagina=1">productos </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">piezas</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">diseños</a>
-                </li>
-                <li class="dropdown open">
-                <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                    Bienvenido<?php echo ": ".$_SESSION['nombre'] ?>
-                </a>                
-            </li>  -->
-                <a href="cerrarSesion.php"  role="button">
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>     
-              
-           
-              
-              <!-- <form class="form-inline" action="busqueda.php" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-              </form>
-               -->
-          
-          </nav>
-</header>
 
+    <h1 class="fw-bold fs-5">gestor de tareas</h1>
+    
+</header> 
 <?php
 include('config.php');
 
-$SqlEventos   = "SELECT * FROM eventoscalendar WHERE id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
+$SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+inner join usuario us on ue.id_usuario=us.id_usuario WHERE ue.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
 $resulEventos = mysqli_query($con, $SqlEventos);
 ?>
 
-
-
 <main class="principal">
-<section id="menu">
-            <ul>
-                <li>
-                    <a href="#">
-                        
-                        <span><a href="creartarea.php"><i class="bi bi-plus"></i></a></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../mistareas.php">
-                       
-                        <span><i class="bi bi-folder"></i></span>
-                    </a>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-list-ul'></i>
-                        <span><a href="calendario.php"><i class="bi bi-calendar3"></i></a></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                       
-                        <span><i class="bi bi-tag"></i></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="perfil.php">
-                       
-                        <span><i class="bi bi-gear"></i></span>
-                    </a>
-                </li>
-                
-            </ul>
-        </section>
-    <section id="contenido">
+    <section class="enlaces">
+        <ul>
+            <li>
+                <a href="calendario.php"><i class="bi bi-calendar3"></i>calendario</a>
+            </li>
+            <li>
+                <a href="../tarea/tareas.php"><i class="bi bi-calendar2-event"></i>Tareas</a>
+            </li>
+            <li>        
+                <a href=""><i class="bi bi-people-fill"></i>grupo de trabajo</a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-kanban"></i>Kamban </a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-chat-dots"></i>chat</a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-share"></i>compartir</a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-person-fill-gear"></i>pefil</a>
+
+            </li>
+        </ul>
+        
+    </section> 
+    <section class="principal-calendario">
     
 <?php
 include('config.php');
 
-  $SqlEventos   = ("SELECT * FROM eventoscalendar");
+  $SqlEventos   = ("SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                    inner join usuario us on ue.id_usuario=us.id_usuario  ");
   $resulEventos = mysqli_query($con, $SqlEventos);
 
 ?>
@@ -185,17 +146,17 @@ $(document).ready(function() {
         // Nuevo Evento
         select: function(start, end){
             $("#exampleModal").modal();
-      $("input[name=fecha_inicio]").val(start.format('DD-MM-YYYY HH:mm:ss'));
+            $("input[name=fecha_inicio]").val(start.format('YYYY-MM-DD HH:mm'));
        
-      var valorFechaFin = end.format("DD-MM-YYYY HH:mm:ss");
-var F_final = moment(valorFechaFin, "DD-MM-YYYY HH:mm:ss").format('DD-MM-YYYY HH:mm:ss');
-      $('input[name=fecha_fin').val(F_final);  
-      if (event) {
-        $("input[name=evento]").val(event.evento);
-        $("input[name=descripcion]").val(event.descripcion);
-        $("select[name=id_estado]").val(event.id_estado);
-        $("select[name=id_etiqueta]").val(event.id_etiqueta);
-    }
+            var valorFechaFin = end.format("YYYY-MM-DD HH:mm");
+            var F_final = moment(valorFechaFin, "YYYY-MM-DD HH:mm").subtract(1, 'days').format('YYYY-MM-DD HH:mm');
+            $('input[name=fecha_fin').val(F_final);  
+            if (event) {
+                $("input[name=evento]").val(event.evento);
+                $("input[name=descripcion]").val(event.descripcion);
+                $("select[name=id_estado]").val(event.id_estado);
+                $("select[name=id_etiqueta]").val(event.id_etiqueta);
+            }
         },
         
         events: [
@@ -247,8 +208,8 @@ var F_final = moment(valorFechaFin, "DD-MM-YYYY HH:mm:ss").format('DD-MM-YYYY HH
         // Moviendo Evento Drag - Drop
         eventDrop: function (event, delta) {
             var idEvento = event._id;
-            var start = event.start.format('YYYY-MM-DDTHH:mm:ss');
-            var end = event.end.format('YYYY-MM-DDTHH:mm:ss');
+            var start = event.start.format('YYYY-MM-DD HH:mm');
+            var end = event.end.format('YYYY-MM-DD HH:mm');
 
             $.ajax({
                 url: 'drag_drop_evento.php',
@@ -268,11 +229,12 @@ var F_final = moment(valorFechaFin, "DD-MM-YYYY HH:mm:ss").format('DD-MM-YYYY HH
   $('input[name=descripcion]').val(event.descripcion);
   $('input[name=archivo_actual]').val(event.fotografia); // Actualiza el campo con la ruta del archivo actual
   $('#archivo_actual_link').attr('href', event.fotografia).text(event.fotografia); // Muestra el enlace al archivo actual
-  $('input[name=fecha_inicio]').val(event.start.format('YYYY-MM-DDTHH:mm:ss'));
-  $('input[name=fecha_fin]').val(event.end.format('YYYY-MM-DDTHH:mm:ss'));
+  $('input[name=fecha_inicio]').val(event.start.format('YYYY-MM-DD HH:mm'));
+  $('input[name=fecha_fin]').val(event.end.format('YYYY-MM-DD HH:mm'));
   $('select[name=id_etiqueta]').val(event.id_etiqueta);
   $('select[name=id_estado]').val(event.id_estado);
   $('select[name=id_usuario]').val(event.id_usuario);
+  $('input[name=color]').val(event.color);
   $("#modalUpdateEvento").modal();
            
         }

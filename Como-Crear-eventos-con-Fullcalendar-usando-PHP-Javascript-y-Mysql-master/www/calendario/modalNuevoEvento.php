@@ -31,24 +31,7 @@
       </div>
     </div>
 
-    <script>
-        // Obtener la fecha y hora actual
-        var now = new Date();
-
-        // Formatear la fecha y hora en el formato adecuado para el campo de entrada datetime-local
-        var formattedDateTime = now.getFullYear() + '-' + pad((now.getMonth() + 1), 2) + '-' + pad(now.getDate(), 2) + 'T' +
-                                pad(now.getHours(), 2) + ':' + pad(now.getMinutes(), 2);
-
-        // Establecer el valor del campo de entrada con la fecha y hora actual
-        document.getElementById('fecha_inicio').value = formattedDateTime;
-
-        // Función para agregar ceros a la izquierda si es necesario
-        function pad(num, size) {
-            var s = num + "";
-            while (s.length < size) s = "0" + s;
-            return s;
-        }
-    </script>
+    
     <div class="form-group">
       <label for="fecha_fin" class="col-sm-12 control-label">Fecha Final</label>
       <div class="col-sm-10">

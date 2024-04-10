@@ -26,13 +26,13 @@ $idEvento = $_POST['idEvento'];
 $color = $_POST["color"];
 $evento = $_POST["evento"];
 $descripcion = $_POST["descripcion"];
-$f_inicio          = $_REQUEST['fecha_inicio'];
-$fecha_inicio      = date('Y-m-d', strtotime($f_inicio)); 
+$f_inicio = $_REQUEST['fecha_inicio'];
+$fecha_inicio = date('Y-m-d\TH:i:s', strtotime($f_inicio));
 
-$f_fin             = $_REQUEST['fecha_fin']; 
-$seteando_f_final  = date('Y-m-d', strtotime($f_fin));  
-$fecha_fin1        = strtotime($seteando_f_final);
-$fecha_fin         = date('Y-m-d', ($fecha_fin1));  
+$f_fin = $_REQUEST['fecha_fin']; 
+$seteando_f_final = date('Y-m-d\TH:i:s', strtotime($f_fin));  
+$fecha_fin1 = strtotime($seteando_f_final."+ 1 days");
+$fecha_fin = date('Y-m-d\TH:i:s', $fecha_fin1);
 
 $id_etiqueta = $_POST["id_etiqueta"];
 $id_estado = $_POST["id_estado"];
