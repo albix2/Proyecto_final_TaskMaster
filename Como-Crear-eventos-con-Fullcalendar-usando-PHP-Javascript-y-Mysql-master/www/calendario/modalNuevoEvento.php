@@ -7,7 +7,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
   <form name="formEvento" id="formEvento" enctype="multipart/form-data" action="nueva_tarea.php" class="form-horizontal" method="POST">
 		
   <div class="form-group">
