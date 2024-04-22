@@ -6,8 +6,12 @@ background-color: rgb(126, 76, 12);
     font-family:'Courier New', Courier, monospace; 
       
 }
+.body{
+  
+    background-color:rgb(196, 201, 224) ;
+}
 body{
-    height: 100%;  
+  
     background-color:rgb(196, 201, 224) ;
 }
 header{
@@ -52,8 +56,9 @@ main{
     color: black;
     text-decoration: none;
 }
+
 .principal{
-    
+
     width: 100%;
     border-radius: 10px;
     padding:1%;
@@ -62,20 +67,31 @@ main{
     display: flex;
     flex-direction: row;
 
+
 }
 /* calendario */
 .principal-calendario{
     background-color:rgb(237, 239, 248) ;
     width: 100%;
     border-radius: 10px;
-    padding:1%;
-    margin: 0.5%;
-    margin-right: 1%;
-    padding: 2%;
+   
+    margin: 0.1%;
+  
+    padding: 10% 0.1% 0% 0.1%;
     
 }
 /* kanban */
-.principal article{
+.principal-kanban{
+    background-color:rgb(237, 239, 248) ;
+    width: 100%;
+    border-radius: 10px;
+   
+    margin: 0.1%;
+  display: flex;
+  flex-direction: row;
+    padding: 1% 0.1% 0% 0.1%;
+}
+.principal-kanban article{
     background-color:rgb(196, 201, 224) ;
     width: 40%;
     margin: 1%;
@@ -119,18 +135,28 @@ main{
     margin: 0.5%;
     margin-right: 1%;
     padding: 2%;
+    z-index: 3;
+    padding-top:9%;
     
 }
 
 .perfil{
-    background-color:rgb(75, 82, 116) ;
+
+    /* background-color:rgb(75, 82, 116) ;
     width: 100%;
     border-radius: 10px;
-    display: flex;
-    flex-direction: row;
+    display: fixed;
+    bottom: 2%;
+    right: 5.5%; */
+    width: 75%;
+    background-color: rgb(75, 82, 116);
+    position: fixed;
+    z-index: 7;
+    top:11%;
+  
 }
 .perfil h3{
-    padding:3%;
+    padding:1%;
     font-size:2em;
     color: white;
 }
@@ -141,6 +167,7 @@ main{
     border-radius: 10px;
     display: flex;
     flex-direction: row;
+    z-index: 8;
    
 
 }
@@ -164,47 +191,92 @@ main{
     background-color:rgb(75, 82, 116) ;
 
 }
+.principal-chat  form{
+    background-color:rgb(196, 201, 224)  ;
+    
+    position: fixed;
+    bottom: 0.1%;
+    right: 2%;
+    z-index: 8;
+    width: 80%;
+    height: 15%;
+
+}
 .principal-chat textarea {
-    width: 78%;
-    height: 5.5%;
-    padding: 12px 20px;
-    box-sizing: border-box;
+    
+margin-top: 3%;
+margin-left: 1%;
+   width: 90%;
+   height: 50%;
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
-    position: fixed;
-    bottom: 2%;
-    right: 5.5%;
+   
   }
 
-  .principal-chat a{
-    position: fixed;
-    bottom: 2%;
-    right: 2%;
+  .principal-chat button{
+    margin-bottom: 4%;
   }
   .principal-chat i{
-    font-size: 2em;
+    font-size: 1em;
     color:#53af53;
+    z-index: 8;
+   
   }
+  /* persona chat */
+  .principal-chatper{
+    background-color:rgb(237, 239, 248) ;
+    width: 100%;
+    border-radius: 10px;
+   
+    margin: 0.1%;
+  
+    padding: 10% 0.2% 0% 0.2%;
+}
+  .principal-chatper table{
+    width: 100%;
+    
+    
+    
+}
+.principal-chatper th{
+    background-color:rgb(196, 201, 224) ;
+    padding: 4% 1% 4% 1%;
+    width: 12,5%;
+
+}
 /* tareas */
+
 .principal-tarea{
     background-color:rgb(237, 239, 248) ;
     width: 100%;
     border-radius: 10px;
    
-    margin: 0.5%;
+    margin: 0.1%;
   
-    padding: 10% 2% 0% 2%;
+    padding: 10% 0.1% 0% 0.1%;
 }
 .principal-tarea table{
     width: 100%;
-    
+
     
 }
 .principal-tarea th{
     background-color:rgb(196, 201, 224) ;
     padding: 4% 1% 4% 1%;
-    width: 12,5%;
+    width: 9%;
+    
 
+}
+.principal-tarea td{
+
+    padding: 4% 1% 4% 1%;
+    width: 9%;
+   
+
+}
+.principal-tarea td a{
+   text-decoration: none;
+   color: black;
 }

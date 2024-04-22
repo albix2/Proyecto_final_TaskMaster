@@ -2,7 +2,10 @@
   max-width: 900px;
   margin: 0 auto;
 }
-
+body{
+  
+  background-color:rgb(196, 201, 224) ;
+}
 #title{
   color: #9c27b0;
   font-weight: 800;

@@ -9,16 +9,19 @@
 	$contra = $_POST['contra'];
 	
 
-	$sql = "SELECT COUNT(*) FROM usuario where(nombre='$usuario' and contraseña='$contra' )";
-	$res = mysqli_query($conn,$sql);
+	$sql = "SELECT COUNT(*) FROM usuario WHERE (nombre COLLATE utf8mb4_bin ='$usuario' AND contraseña COLLATE utf8mb4_bin ='$contra')";
+
+
+	// echo s$sql;
+	$res = mysqli_query($conn, $sql);
 	$row = mysqli_fetch_array($res);
 
-	if($row[0] > 0 ){
+	if ($row[0] > 0) {
 		session_start();
+		// echo $usuario;
 		$_SESSION['nombre'] = $usuario;
-		header( 'Location: ../index.php' );
-	}
-	else{
-		header( 'Location: index.php' );		
+		header('Location: ../calendario/calendario.php');
+	} else {
+		header('Location: index.php');		
 	}
 ?>

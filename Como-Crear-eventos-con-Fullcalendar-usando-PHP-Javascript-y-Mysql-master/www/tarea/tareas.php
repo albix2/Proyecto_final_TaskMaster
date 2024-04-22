@@ -35,19 +35,39 @@ $resulEventos = mysqli_query($conn, $SqlEventos); // Utiliza la misma variable d
 ?>
 
 <main>
-    <section class="enlaces">
+<section class="enlaces">
         <ul>
-            <li><a href="#"><i class="bi bi-calendar3"></i> Calendario</a></li>
-            <li><a href="#"><i class="bi bi-calendar2-event"></i> Tareas</a></li>
-            <li><a href="#"><i class="bi bi-people-fill"></i> Grupo de Trabajo</a></li>
-            <li><a href="#"><i class="bi bi-kanban"></i> Kamban</a></li>
-            <li><a href="#"><i class="bi bi-chat-dots"></i> Chat</a></li>
-            <li><a href="#"><i class="bi bi-share"></i> Compartir</a></li>
-            <li><a href="#"><i class="bi bi-person-fill-gear"></i> Perfil</a></li>
+            <li>
+                <a href="../calendario/calendario.php"><i class="bi bi-calendar3"></i>calendario</a>
+            </li>
+            <li>
+                <a href="../tarea/tareas.php"><i class="bi bi-calendar2-event"></i>Tareas</a>
+            </li>
+            <li>        
+                <a href=""><i class="bi bi-people-fill"></i>grupo de trabajo</a>
+            </li>
+            <li>
+                <a href="../kanban/kanban.html"><i class="bi bi-kanban"></i>Kamban </a>
+            </li>
+            <li>
+                <a href="../chat/chat.php"><i class="bi bi-chat-dots"></i>chat</a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-share"></i>compartir</a>
+            </li>
+            <li>
+                <a href=""><i class="bi bi-person-fill-gear"></i>pefil</a>
+
+            </li>
+
         </ul>
-    </section> 
+        
+    </section>  
     <section class="principal-tarea">
-        <table>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  nuevo evento
+</button>
+        <table  class="table ">
             <thead>
                 <tr>
                     <th scope="col">Tarea</th>
@@ -57,7 +77,10 @@ $resulEventos = mysqli_query($conn, $SqlEventos); // Utiliza la misma variable d
                     <th scope="col">Estado</th>
                     <th scope="col">Etiqueta</th>
                     <th scope="col">Archivos</th>
+                    <th scope="col">compartidas</th>
                     <th scope="col">compartir</th>
+                    <th scope="col">actualizar</th>
+                    <th scope="col">borrar</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,12 +99,66 @@ $resulEventos = mysqli_query($conn, $SqlEventos); // Utiliza la misma variable d
                           <a href="<?php echo $registro['archivos']; ?>"><?php echo $registro['archivos']; ?></a>
                             
                         </td>
+                        <td>
+                        <?php
+                        $compartir = $registro['id'];
+                        $SqlEventos2   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
+                        $usuario = $_SESSION['nombre'];
+                        $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+                while($registro2 = mysqli_fetch_assoc($resulEventos2)) {
+                    $nombre_compartir =$registro2['nombre'];
+                    // echo $usuario;
+                    if($nombre_compartir == $usuario) {
+                        ?>   
+                   <P>Yo</P>
+                   
+                    <?php
+                    } else{
+                        
+                ?>
+               
+                <p><?php echo $registro2['nombre'];?></p>
+                <?php
+                }
+                }
+                ?>
+                        </td>
+                        <td>
+    <a type="button" data-bs-toggle="modal" data-bs-target="#compartir_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
+    <i class="bi bi-people-fill" style="font-size: 2rem; color:blue;"></i>
+    </a>
+</td>
+<td>
+    <a type="button" data-bs-toggle="modal" data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
+        <i class="bi-pencil px-1" style="font-size: 2rem; color:green;"></i>
+        
+    </a>
+</td>
+
+                        <td> <a href="deleteEvento.php?id=<?php echo $registro['id']; ?>"><i class="bi-trash px-1" style="font-size: 2rem; color:red;"></i> </a></td>  
+
                     </tr>
+                    <?php  
+
+  include('modalUpdateEvento.php');
+  include('modalcompartir.php');
+  
+
+?>
+ 
                 <?php
                 }
                 ?>
             </tbody>
         </table>
+        
+        <?php  
+include('modalNuevoEvento.php');
+
+  
+
+?>
     </section> 
 </main>
 <!-- Bootstrap -->
