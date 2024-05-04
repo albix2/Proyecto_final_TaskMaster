@@ -131,8 +131,9 @@ if ($registro = mysqli_fetch_assoc($registros)) {
 <!-- Agrega un nuevo campo de entrada de tipo file para permitir al usuario seleccionar un nuevo archivo -->
 <div class="form-group">
     <label for="fotografia">Nuevo Archivo:</label>
- 
-    <input type="file" class="form-control" name="fotografia" id="fotografia" required accept="image/*, .pdf, .doc, .docx, .odt">
+    
+    <input type="file" class="form-control" name="fotografia" id="fotografia "value= "<?php echo $registro['archivos']; ?>"  accept="image/*, .pdf, .doc, .docx, .odt">
+    <input type="text"  name="fotografia" id="fotografia "value= "<?php echo $registro['archivos']; ?> " hidden >
 </div>
 
 	   <div class="modal-footer">
@@ -141,10 +142,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
     	</div>
 	</form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      
     </div>
   </div>
 </div>

@@ -54,7 +54,7 @@ $resulEventos = mysqli_query($conexion, $SqlEventos);
                 <a href=""><i class="bi bi-people-fill"></i>grupo de trabajo</a>
             </li>
             <li>
-                <a href="../kanban/kanban.html"><i class="bi bi-kanban"></i>Kamban </a>
+                <a href="../kanban/kanban.php"><i class="bi bi-kanban"></i>Kamban </a>
             </li>
             <li>
                 <a href="../chat/chat.php"><i class="bi bi-chat-dots"></i>chat</a>
