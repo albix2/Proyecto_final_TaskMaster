@@ -102,19 +102,10 @@
   </div>
  
 
-        <!-- Campo oculto para almacenar la ruta del archivo actual -->
-        <input type="hidden" name="archivo_actual" id="archivo_actual">
+ 
 
-        <!-- Muestra el archivo actual -->
-        <div class="form-group">
-          <label for="archivo_actual">Archivo Actual:</label>
-          <a id="archivo_actual_link" href="#" target="_blank"></a>
-        </div>
 <!-- Agrega un nuevo campo de entrada de tipo file para permitir al usuario seleccionar un nuevo archivo -->
-<div class="form-group">
-    <label for="fotografia">Nuevo Archivo:</label>
-    <input type="file" class="form-control" name="fotografia" id="fotografia" required accept="image/*, .pdf, .doc, .docx, .odt">
-</div>
+
 
 	   <div class="modal-footer">
       	<button type="submit" class="btn btn-success">Guardar Evento</button>

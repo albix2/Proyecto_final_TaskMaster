@@ -2,17 +2,23 @@
 include "login/conexion.php";
 mysqli_select_db($conexion, "practicas");
 session_start();
-$usuario = $_SESSION['nombre'];
-if (!isset($usuario)) {
-    header("Location: index.php");
-    exit;
+
+// Verificar si el usuario ha iniciado sesión correctamente
+if (!isset($_SESSION['nombre']) || empty($_SESSION['nombre'])) {
+    // Si no ha iniciado sesión, redirigir a la página de inicio de sesión
+    header("Location: ../login/index.php");
+    exit; // Detener la ejecución del script después de la redirección
 }
+
+$usuario = $_SESSION['nombre'];
+
+
 $sql = "SELECT id_usuario FROM usuario where nombre='$usuario' ";
 $res = mysqli_query($conexion, $sql);
 $fila = mysqli_fetch_assoc($res);
-// Obtiene el id del usuario de la fila obtenida
 $id_usuario = $fila['id_usuario'];
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,17 +36,24 @@ $id_usuario = $fila['id_usuario'];
     <link rel="stylesheet" type="text/css" href="../css/calendario.css">
 </head>
 <body class="body">
-<header> 
+<header class="titulo"> 
     <h1 class="fw-bold fs-5">Gestor de Tareas</h1>
+    <a href="../cerrarSesion.php" role="button">
+                    <i class="bi bi-box-arrow-right" style="font-size: 1.5rem; color:black;"></i>
+    </a>
 </header> 
 <?php
 include('login/config.php');
 $SqlEventos   = "SELECT * FROM eventoscalendar ev 
-                INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
-                INNER JOIN usuario us ON ue.id_usuario=us.id_usuario 
-                inner join estado es on es.id_estado = ev.id_estado
-                WHERE ue.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
+inner join usuario_evento ue on ue.id_evento = ev.id
+inner join usuario us on ue.id_usuario=us.id_usuario 
+inner join estado es on es.id_estado=ev.id_estado 
+inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+inner join archivo_evento ae on ae.id_evento = ev.id
+inner join archivos ar on ae.id_archivo= ar.id_archivo
+where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
 $resulEventos = mysqli_query($conexion, $SqlEventos);
+
 ?>
 <main class="principal">
     <section class="enlaces">
@@ -64,7 +77,8 @@ $resulEventos = mysqli_query($conexion, $SqlEventos);
                 <a href=""><i class="bi bi-share"></i>compartir</a>
             </li>
             <li>
-                <a href=""><i class="bi bi-person-fill-gear"></i>pefil</a>
+                <a href="../perfil/perfil.php
+                "><i class="bi bi-person-fill-gear"></i>pefil</a>
             </li>
         </ul>
     </section>

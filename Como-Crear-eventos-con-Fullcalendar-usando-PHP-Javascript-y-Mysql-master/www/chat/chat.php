@@ -1,72 +1,4 @@
-<?php
-include "../login/conexion.php";
-mysqli_select_db($conn, "practicas");
-session_start();
-$usuario = $_SESSION['nombre'];
-if (!isset($usuario)) {
-    header("Location: index.php");
-    exit;
-}
-$sql = "SELECT id_usuario FROM usuario where nombre='$usuario' ";
-$res = mysqli_query($conn, $sql);
-$fila = mysqli_fetch_assoc($res);
-$id_usuario = $fila['id_usuario'];
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- css -->
-   
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../css/estilo.css" >
-    <title>Document</title>
-</head>
-<body>
-<header>
-    <h1 class="fw-bold fs-3">gestor de tareas</h1>
-    
-</header>
-<?php
-include('../conexion/config.php');
-
-$SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
-inner join usuario us on ue.id_usuario=us.id_usuario WHERE ue.id_usuario = $id_usuario";
-$resulEventos = mysqli_query($conn, $SqlEventos); // Utiliza la misma variable de conexión
-?>
-<main class="principal">
-<section class="enlaces">
-        <ul>
-            <li>
-                <a href="../calendario/calendario.php"><i class="bi bi-calendar3"></i>calendario</a>
-            </li>
-            <li>
-                <a href="../tarea/tareas.php"><i class="bi bi-calendar2-event"></i>Tareas</a>
-            </li>
-            <li>        
-                <a href=""><i class="bi bi-people-fill"></i>grupo de trabajo</a>
-            </li>
-            <li>
-                <a href="../kanban/kanban.html"><i class="bi bi-kanban"></i>Kamban </a>
-            </li>
-            <li>
-                <a href="../chat/chat.php"><i class="bi bi-chat-dots"></i>chat</a>
-            </li>
-            <li>
-                <a href=""><i class="bi bi-share"></i>compartir</a>
-            </li>
-            <li>
-                <a href=""><i class="bi bi-person-fill-gear"></i>pefil</a>
-
-            </li>
-
-        </ul>
-        
-    </section>
+<?php include('../header.php'); ?>
     <section class="principal-chatper">
     <table>
     <thead>
@@ -77,8 +9,21 @@ $resulEventos = mysqli_query($conn, $SqlEventos); // Utiliza la misma variable d
         </tr>
     </thead>
     <tbody>
+    <?php
+                include('../login/config.php');
+                $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+                inner join usuario_evento ue on ue.id_evento = ev.id
+                inner join usuario us on ue.id_usuario=us.id_usuario 
+                inner join estado es on es.id_estado=ev.id_estado 
+                inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+                -- inner join archivo_evento ae on ae.id_evento = ev.id
+                -- inner join archivos ar on ae.id_archivo= ar.id_archivo
+                where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
+                $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+
+?>
         <?php
-        while($registro = mysqli_fetch_assoc($resulEventos)) {
+        while($registro = mysqli_fetch_assoc($resulEventos3)) {
         ?>
             <tr class="align-middle">
                 <td><?php echo $registro['evento']; ?></td>

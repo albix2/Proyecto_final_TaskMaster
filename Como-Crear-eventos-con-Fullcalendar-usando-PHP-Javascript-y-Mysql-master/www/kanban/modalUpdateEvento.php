@@ -120,21 +120,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
         <!-- Campo oculto para almacenar la ruta del archivo actual -->
         
 
-        <!-- Muestra el archivo actual -->
-        <div class="form-group">
-          <label for="archivo_actual">Archivo Actual:</label>
-          <?php 
-                            $filename = basename($registro['archivos']); // Obtener solo el nombre del archivo
-                            ?>
-          <a href="<?php echo $registro['archivos']; ?>"><?php echo $filename; ?></a>
-        </div>
-<!-- Agrega un nuevo campo de entrada de tipo file para permitir al usuario seleccionar un nuevo archivo -->
-<div class="form-group">
-    <label for="fotografia">Nuevo Archivo:</label>
-    
-    <input type="file" class="form-control" name="fotografia" id="fotografia "value= "<?php echo $registro['archivos']; ?>"  accept="image/*, .pdf, .doc, .docx, .odt">
-    <input type="text"  name="fotografia" id="fotografia "value= "<?php echo $registro['archivos']; ?> " hidden >
-</div>
+     
 
 	   <div class="modal-footer">
       	<button type="submit" class="btn btn-success">Guardar Evento</button>

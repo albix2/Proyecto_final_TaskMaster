@@ -6,6 +6,12 @@ background-color: rgb(126, 76, 12);
     font-family:'Courier New', Courier, monospace; 
       
 }
+br {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
 .body{
   
     background-color:rgb(196, 201, 224) ;
@@ -14,10 +20,14 @@ body{
   
     background-color:rgb(196, 201, 224) ;
 }
-header{
+.titulo{
 
-    padding: 2% 0% 0% 5%;
+    padding: 2% 5% 0% 5%;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
 }
 
 .principal{
@@ -79,22 +89,25 @@ main{
 
 /* calendario */
 .principal-calendario{
-    background-color:rgb(237, 239, 248) ;
+   background-color:rgb(237, 239, 248) ;
     width: 100%;
     border-radius: 10px;
-   
-    margin: 0.1%;
+    padding:1%;
+    margin: 0.5%;
+    margin-right: 1%;
+    padding: 2%;
   
-    padding: 10% 0.1% 0% 0.1%;
-    
+    padding-top:9%;
 }
 /* kanban */
 .principal-kanban{
     background-color:rgb(237, 239, 248) ;
     width: 100%;
     border-radius: 10px;
-   
-    margin: 0.0001%;
+    padding:1%;
+    margin: 0.5%;
+    margin-right: 1%;
+    padding: 2%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -178,8 +191,10 @@ main{
     margin: 0.5%;
     margin-right: 1%;
     padding: 2%;
-    z-index: 3;
     padding-top:9%;
+
+    z-index: 3;
+   
     
 }
 
@@ -337,8 +352,36 @@ margin-left: 1%;
     letter-spacing: .1em;
     text-transform: uppercase;
   }
+  .botones{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+  }
+  .botones button:first-child{
+   background-color: #53af53;
+    width: 50%;
+    
+  }
+  .botones button{
+    background-color: #ccc;
+    width: 50%;
+    
+  }
+  /* perfil */
+  .principal-perfil{
+    background-color:rgb(237, 239, 248) ;
+    width: 100%;
+    border-radius: 10px;
+    padding:1%;
+    margin: 0.5%;
+    margin-right: 1%;
+    padding: 2%;
   
+    padding-top:9%;
+}
+
   @media screen and (max-width: 1500px) {
+    /* tarea */
     .principal-tarea table {
       border: 0;
     }

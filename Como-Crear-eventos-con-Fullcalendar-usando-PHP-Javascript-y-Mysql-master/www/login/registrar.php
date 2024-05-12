@@ -13,11 +13,11 @@
 	$ciudad = $_POST['ciudad'];
 	
 
-	$sql = "INSERT INTO usuario (nombre, apellido, correo_electronico, contraseña,ciudad,imagen) VALUES ('$nombre', '$ape', '$correo', '$contra','$ciudad','imagenes/user_defecto.png');";
+	$sql = "INSERT INTO usuario (nombre, apellido, correo_electronico, contraseña,ciudad,imagen) VALUES ('$nombre', '$ape', '$correo', '$contra','$ciudad','../imagenes/user_defecto.png');";
 	$res = mysqli_query($conn,$sql);
 	// echo $sql;
 	if ( isset( $res ) )
-    header( 'Location: index.php' );
+    header( 'Location: index.php?no=1' );
 	else
 		echo "error";	
 

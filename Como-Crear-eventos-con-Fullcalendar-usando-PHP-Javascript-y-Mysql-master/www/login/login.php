@@ -20,7 +20,7 @@
 		session_start();
 		// echo $usuario;
 		$_SESSION['nombre'] = $usuario;
-		header('Location: ../calendario/calendario.php');
+		header('Location: ../calendario/calendario.php?no=1');
 	} else {
 		header('Location: index.php');		
 	}

@@ -19,5 +19,7 @@ $sqlDeleteEvento2 = "DELETE FROM usuario_evento WHERE id_evento = '" . $id . "' 
 echo $id;
 echo $id_usuario;
 $resultProd2 = mysqli_query($con, $sqlDeleteEvento2);
+$sqlDeleteEvento3 = ("DELETE FROM archivos WHERE  id_evento='" .$id. "'");
+$resultProd3 = mysqli_query($con, $sqlDeleteEvento3);
 header("Location: mistareas.php");
 ?>

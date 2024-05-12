@@ -70,7 +70,7 @@ if (isset($_FILES['fotografia']) && isset($_FILES['fotografia']['name'])) {
 // Consulta SQL para actualizar el evento
 if ($_FILES['fotografia']['name'] != "") {
     // Si se selecciona una nueva imagen
-    $actualizar_evento = "UPDATE eventoscalendar SET evento = '$evento', descripcion = '$descripcion', color_evento = '$color', fecha_fin = '$fecha_fin', fecha_inicio = '$fecha_inicio', id_etiquetas = '$id_etiqueta', id_estado = '$id_estado', archivos = '$nombreCompleto' WHERE id='".$idEvento."'";
+    $actualizar_evento = "UPDATE eventoscalendar SET evento = '$evento', descripcion = '$descripcion', color_evento = '$color', fecha_fin = '$fecha_fin', fecha_inicio = '$fecha_inicio', id_etiquetas = '$id_etiqueta', id_estado = '$id_estado' WHERE id='".$idEvento."'";
 } else {
     // Si no se selecciona una nueva imagen
     $actualizar_evento = "UPDATE eventoscalendar SET evento = '$evento', descripcion = '$descripcion', color_evento = '$color', fecha_fin = '$fecha_fin', fecha_inicio = '$fecha_inicio', id_etiquetas = '$id_etiqueta', id_estado = '$id_estado' WHERE id='".$idEvento."'";

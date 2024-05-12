@@ -70,16 +70,17 @@ if ($id_estado == 'pendiente') {
     $fecha_fin1 = strtotime($seteando_f_final."+ 1 days");
     $fecha_fin = date('Y-m-d\TH:i', $fecha_fin1); 
 }
-
 // Insertar evento en la base de datos
-$insertardos = "INSERT INTO eventoscalendar (archivos, color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_estado) VALUES ('$nombreCompleto', '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_estado')";
+$insertardos = "INSERT INTO eventoscalendar ( color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_estado) VALUES ( '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_estado')";
 $resultadoNuevoEvento = mysqli_query($con, $insertardos); // Ejecuta la consulta SQL para insertar el evento en la base de datos
 
 $id_evento = mysqli_insert_id($con);
 // echo $id_evento;
 $insert2 = "INSERT INTO usuario_evento (id_evento, id_usuario) VALUES ('$id_evento', '$id_usuario')";
 $resultadoInsert2 = mysqli_query($con, $insert2);
-
+$insertardos3 = "INSERT INTO archivos (nombre_archivo, id_evento) VALUES ('$nombreCompleto', '$id_evento')";
+// echo $insertardos3;
+$resultadoNuevoEvento3 = mysqli_query($con, $insertardos3);
 if ($resultadoNuevoEvento) {
     header("Location: kanban.php");
 } else {
