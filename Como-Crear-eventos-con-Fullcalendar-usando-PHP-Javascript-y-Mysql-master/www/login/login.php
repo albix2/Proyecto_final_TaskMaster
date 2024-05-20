@@ -22,6 +22,6 @@
 		$_SESSION['nombre'] = $usuario;
 		header('Location: ../calendario/calendario.php?no=1');
 	} else {
-		header('Location: index.php');		
+		header('Location: ../index.php');		
 	}
 ?>

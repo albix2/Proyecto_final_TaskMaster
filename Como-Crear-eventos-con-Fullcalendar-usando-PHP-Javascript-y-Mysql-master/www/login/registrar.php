@@ -17,7 +17,7 @@
 	$res = mysqli_query($conn,$sql);
 	// echo $sql;
 	if ( isset( $res ) )
-    header( 'Location: index.php?no=1' );
+    header( 'Location: ../index.php?no=1' );
 	else
 		echo "error";	
 

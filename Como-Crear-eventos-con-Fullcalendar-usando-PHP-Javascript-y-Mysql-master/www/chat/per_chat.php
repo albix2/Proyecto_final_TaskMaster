@@ -33,7 +33,7 @@
         }
         ?>
     </div>
-    <form name="formchat" id="formchat" class="formchat" enctype="multipart/form-data" action="mensaje.php" method="POST">
+    <form name="formchat" id="formchat" class="formchat" enctype="multipart/form-data" action="mensaje.php" method="POST" onsubmit="return enviarMensaje(event)">
         <input type="hidden" class="form-control" name="idEvento" id="idEvento" value="<?php echo $id_evento; ?>">      
         <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $id_usuario; ?>">      
         <textarea name="mensaje" id="mensaje" cols="30" rows="10"></textarea> 
@@ -46,13 +46,44 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script>
-    // Función para recargar la página cada 5 segundos
-    function recargarPagina() {
-        location.reload();
+    function enviarMensaje(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
+        var form = document.getElementById('formchat');
+        var formData = new FormData(form);
+
+        // Enviar los datos del formulario mediante AJAX
+        fetch('mensaje.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Recargar la página después de enviar el mensaje
+            cargarMensajes();
+            // Borrar el contenido del textarea
+            document.getElementById('mensaje').value = '';
+        })
+        .catch(error => console.error('Error:', error));
+
+        return false;
     }
 
-    // Recargar la página cada 5 segundos
-    setInterval(recargarPagina, 5000); // 5000 milisegundos = 5 segundos
+    function cargarMensajes() {
+        var idEvento = document.getElementById('idEvento').value;
+
+        fetch('cargar_mensajes.php?id=' + idEvento)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('chat').innerHTML = data;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Recargar los mensajes cada 5 segundos
+    setInterval(cargarMensajes, 5000);
+
+    // Cargar los mensajes inicialmente
+    cargarMensajes();
 </script>
 </body>
 </html>
