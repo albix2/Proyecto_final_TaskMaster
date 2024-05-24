@@ -1,6 +1,6 @@
 <?php include('../header.php'); ?>
     <section class="principal-chatper">
-    <table>
+    <table class="tabla">
     <thead>
         <tr>
             <th scope="col">Tarea</th>
@@ -31,7 +31,7 @@
                     <?php
                     $compartir = $registro['id'];
                     $SqlEventos2   = "SELECT * FROM eventoscalendar ev INNER JOIN usuario_evento ue ON ue.id_evento = ev.id INNER JOIN usuario us ON ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
-                    $usuario = $_SESSION['nombre'];
+                    $id_usuario = $_SESSION['id_usuario'];
                     $resulEventos2 = mysqli_query($conn, $SqlEventos2);
                     ?>
                     <?php

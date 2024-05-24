@@ -37,15 +37,14 @@
             select: function(start, end){
                 $("#exampleModal").modal();
                 $("input[name=fecha_inicio]").val(start.format('YYYY-MM-DD HH:mm'));
-                var valorFechaFin = end.format("YYYY-MM-DD HH:mm");
-                var F_final = moment(valorFechaFin, "YYYY-MM-DD HH:mm").subtract(1, 'days').format('YYYY-MM-DD HH:mm');
-                $('input[name=fecha_fin').val(F_final);  
+              
+                $('input[name=fecha_fin').val(end.format('YYYY-MM-DD HH:mm'));
                 if (event) {
                     $("input[name=evento]").val(event.evento);
                     $("input[name=descripcion]").val(event.descripcion);
                     $("select[name=id_estado]").val(event.id_estado);
                     $("select[name=id_etiqueta]").val(event.id_etiqueta);
-                    $("select[name=fotografia]").val(event.fotografia);
+                  
                 }
             },
             events: [

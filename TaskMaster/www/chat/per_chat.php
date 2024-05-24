@@ -4,6 +4,7 @@
         <?php
             include('../conexion/config.php');
             $id_evento = $_GET['id'];
+       
             $SqlEventos2 = "SELECT * FROM eventoscalendar ev INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
             INNER JOIN usuario us ON ue.id_usuario=us.id_usuario WHERE ev.id = $id_evento";
             $resulEventos2 = mysqli_query($conn, $SqlEventos2);
@@ -20,13 +21,30 @@
             if($nombre_compartir == $id_usuario) {
         ?>
         <article class="mensaje me">
+        <h6>Yo</h6>
+  
+        <div>
             <p><?php echo $registro4['mensaje']; ?></p>
+            <img src="../<?php echo $registro4['imagen']; ?>" alt="j">
+            <button data-bs-toggle="modal" class="btn btn-link text-black p-0" data-bs-target="#chat_<?php echo $registro4['id_chat']; ?>" data-id="<?php echo $registro4['id_chat']; ?>">
+            ...
+            </button>
+        </div>
         </article>
+        <?php
+// echo $id_usuario ;
+include('modalchat.php');
+?>
         <?php
             } else {
         ?> 
         <article class="mensaje">
+      
+        <h6><?php echo $registro4['nombre']; ?><6>
+        <div>
+            <img src="../<?php echo $registro4['imagen']; ?>" alt="j">
             <p><?php echo $registro4['mensaje']; ?></p>
+        </div>
         </article>
         <?php
             }
@@ -36,8 +54,8 @@
     <form name="formchat" id="formchat" class="formchat" enctype="multipart/form-data" action="mensaje.php" method="POST" onsubmit="return enviarMensaje(event)">
         <input type="hidden" class="form-control" name="idEvento" id="idEvento" value="<?php echo $id_evento; ?>">      
         <input type="hidden" class="form-control" name="idusuario" id="idusuario" value="<?php echo $id_usuario; ?>">      
-        <textarea name="mensaje" id="mensaje" cols="30" rows="10"></textarea> 
-        <button type="submit"  class="btn btn-success"><i class="bi bi-send"></i></button>
+        <textarea name="mensaje" id="mensaje" cols="1" rows="1" style="border: none;"></textarea> 
+        <button type="submit"  class="btn "><i class="bi bi-send"></i></button>
     </form> 
 </section> 
 </main>
@@ -62,6 +80,7 @@
             cargarMensajes();
             // Borrar el contenido del textarea
             document.getElementById('mensaje').value = '';
+          
         })
         .catch(error => console.error('Error:', error));
 

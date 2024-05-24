@@ -94,14 +94,7 @@
 				<input type="color" class="form-control" name="color" id="color" placeholder="Nombre del Evento" required/>
 			</div>
 		</div>
-    <div class="mb-3">
-    <label for="" class="form-label"><b>Imagen</b></label>
-    <div class="col-sm-10">
-    <input type="file"
-      class="form-control" name="fotografia" id="fotografia" required accept="image/*, .pdf, .doc, .docx, .odt">
-    <small id="helpId" class="form-text text-muted">fotografia</small>
-  </div>
-  </div>
+ 
 
 </div>
 		

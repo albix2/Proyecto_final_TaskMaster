@@ -2,7 +2,7 @@
 include "../login/conexion.php"; // Incluye el archivo de conexión a la base de datos
 session_start(); // Inicia la sesión
 
-if (!isset($_SESSION['nombre'])) { // Verifica si el usuario está autenticado
+if (!isset($_SESSION['id_usuario'])) { // Verifica si el usuario está autenticado
     header("Location: ../index.php"); // Redirige a la página de inicio de sesión si no está autenticado
     exit;
 }

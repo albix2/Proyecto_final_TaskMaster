@@ -1,11 +1,8 @@
 
 <?php
                 include('../conexion/config.php');
-                $usuario = $_SESSION['nombre'];
-                $sql = "SELECT id_usuario FROM usuario where nombre='$usuario' ";
-                $res = mysqli_query($con, $sql);
-                $fila = mysqli_fetch_assoc($res);
-                $id_usuario = $fila['id_usuario'];
+                $id_usuario = $_SESSION['id_usuario'];
+              
                 $SqlEventos2   = "SELECT * FROM usuario us 
                 inner join ciudad ci 
                 on ci.id_ciudad= us.ciudad  WHERE us.id_usuario= $id_usuario";
@@ -20,28 +17,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form name="perfil" id="perfil_<?php echo $registro['id']; ?>"  enctype="multipart/form-data" action="
-        " class="form-horizontal" method="POST"></form>
+        <form name="perfil" id="perfil_<?php echo $registro['id']; ?>"  enctype="multipart/form-data" action="actualizar_perfil.php" class="form-horizontal" method="POST">
       
 <input type="hidden" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro2['id_usuario']; ?>">      
       <div class="form-group">
-			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
+			<label for="evento" class="col-sm-12 control-label">Nombre del usuario</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name="evento" id="evento" value="<?php echo $registro2['nombre'];?>" placeholder="Nombre del Evento" required/>
+				<input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo $registro2['nombre'];?>" placeholder="Nombre del Evento" required/>
 			</div>
 		</div>
 
       <div class="form-group">
-			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
+			<label for="evento" class="col-sm-12 control-label">apellido</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name="evento" id="evento" value="<?php echo $registro2['apellido'];?>" placeholder="Nombre del Evento" required/>
+				<input type="text" class="form-control" name="apellido" id="apellido" value="<?php echo $registro2['apellido'];?>" placeholder="Nombre del Evento" required/>
 			</div>
 		</div>
 
       <div class="form-group">
-			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
+			<label for="ciudad" class="col-sm-12 control-label">ciudad</label>
 			<div class="col-sm-10">
-          <select name="id_estado" class="form-control"> 
+          <select name="ciudad" class="form-control"> 
               <option selected disabled>Seleccione la categoria</option>
               <?php
               include("config.php");
@@ -64,18 +60,19 @@
         </div>
 		</div>
 
-    <input type="hidden" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro2['nombre_ciudad']; ?>">      
       <div class="form-group">
-			<label for="evento" class="col-sm-12 control-label">Nombre del Evento</label>
+			<label for="evento" class="col-sm-12 control-label">correo electronico</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name="evento" id="evento" value="<?php echo $registro2['correo_electronico'];?>" placeholder="Nombre del Evento" required/>
+				<input type="text" class="form-control" name="correo" id="correo" value="<?php echo $registro2['correo_electronico'];?>" placeholder="Nombre del Evento" required/>
 			</div>
 		</div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+    <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
       </div>
-    </div>
+      </form>
+   
   </div>
 </div>

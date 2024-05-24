@@ -7,15 +7,19 @@ mysqli_select_db($con, "practicas");
 session_start();
 
 // Verificar si el usuario ha iniciado sesión correctamente
-if (!isset($_SESSION['id_usuario']) || empty($_SESSION['id_usuario'])) {
+if (!isset($_SESSION['nombre']) || empty($_SESSION['nombre'])) {
     // Si no ha iniciado sesión, redirigir a la página de inicio de sesión
     header("Location: ../login/index.php");
     exit; // Detener la ejecución del script después de la redirección
 }
 
-$id_usuario = $_SESSION['id_usuario'];
+$usuario = $_SESSION['nombre'];
 
-
+$id = $_REQUEST['id'];
+$sql = "SELECT id_usuario FROM usuario where nombre='$usuario' ";
+$res = mysqli_query($con, $sql);
+$fila = mysqli_fetch_assoc($res);
+$id_usuario = $fila['id_usuario'];
 ?>
 
 <table class="table">

@@ -3,12 +3,16 @@ require_once('../conexion/config.php');
 $id = $_REQUEST['id'];
 mysqli_select_db($con, "practicas");
 session_start();
-$id_usuario = $_SESSION['id_usuario'];
-if (!isset($id_usuario)) {
+$usuario = $_SESSION['nombre'];
+if (!isset($usuario)) {
     header("Location: index.php");
     exit;
 }
 
+$sql = "SELECT id_usuario FROM usuario where nombre='$usuario' ";
+$res = mysqli_query($con, $sql);
+$fila = mysqli_fetch_assoc($res);
+$id_usuario = $fila['id_usuario'];
 
 
 

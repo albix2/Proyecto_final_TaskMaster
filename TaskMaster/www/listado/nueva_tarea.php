@@ -3,7 +3,7 @@ include "../login/conexion.php"; // Incluye el archivo de conexión a la base de
 
 session_start(); // Inicia la sesión
 
-if (!isset($_SESSION['id_usuario'])) { // Verifica si el usuario está autenticado
+if (!isset($_SESSION['nombre'])) { // Verifica si el usuario está autenticado
     header("Location: ../index.php"); // Redirige a la página de inicio de sesión si no está autenticado
     exit;
 }
@@ -12,9 +12,14 @@ setlocale(LC_ALL,"es_ES");
 include "../conexion/config.php"; // Incluye el archivo de configuración (aunque no se usa explícitamente en este script)
 date_default_timezone_set("America/Bogota");
 setlocale(LC_ALL,"es_ES");
-$id_usuario = $_SESSION['id_usuario']; // Obtiene el nombre de usuario de la sesión
+$usuario = $_SESSION['nombre']; // Obtiene el nombre de usuario de la sesión
 
-
+// Obtener el ID del usuario de la base de datos
+mysqli_select_db($con, "practicas");
+$sql = "SELECT id_usuario FROM usuario WHERE nombre='$usuario'";
+$res = mysqli_query($con, $sql);
+$fila = mysqli_fetch_assoc($res);
+$id_usuario = $fila['id_usuario']; // Obtiene el ID de usuario
 
 // Recibe los datos del formulario
 $evento = $_POST["evento"];
@@ -67,14 +72,14 @@ if ($id_estado == 'pendiente') {
 }
 
 // Insertar evento en la base de datos
-$insertardos = "INSERT INTO eventoscalendar ( color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_estado) VALUES ( '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_estado')";
+$insertardos = "select INTO eventoscalendar ( color_evento, descripcion, evento, fecha_fin, fecha_inicio, id_etiquetas, id_estado) VALUES ( '$color', '$descripcion', '$evento', '$fecha_fin', '$fecha_inicio', '$id_etiqueta', '$id_estado')";
 $resultadoNuevoEvento = mysqli_query($con, $insertardos); // Ejecuta la consulta SQL para insertar el evento en la base de datos
 
 $id_evento = mysqli_insert_id($con);
 // echo $id_evento;
-$insert2 = "INSERT INTO usuario_evento (id_evento, id_usuario) VALUES ('$id_evento', '$id_usuario')";
+$insert2 = "select INTO usuario_evento (id_evento, id_usuario) VALUES ('$id_evento', '$id_usuario')";
 $resultadoInsert2 = mysqli_query($con, $insert2);
-$insertardos3 = "INSERT INTO archivos (nombre_archivo, id_evento) VALUES ('$nombreCompleto', '$id_evento')";
+$insertardos3 = "select INTO archivos (nombre_archivo, id_evento) VALUES ('$nombreCompleto', '$id_evento')";
 // echo $insertardos3;
 $resultadoNuevoEvento3 = mysqli_query($con, $insertardos3);
 if ($resultadoNuevoEvento) {

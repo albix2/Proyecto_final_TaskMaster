@@ -2,7 +2,7 @@
 include "../login/conexion.php";
 session_start();
 
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../index.php");
     exit;
 }
@@ -13,17 +13,14 @@ include "../conexion/config.php";
 date_default_timezone_set("America/Bogota");
 setlocale(LC_ALL, "es_ES");
 
-$usuario = $_SESSION['nombre'];
+$id_usuario = $_SESSION['id_usuario'];
 $correo_electronico = $_POST["correo_electronico"];
 $id_evento = $_POST['idEvento'];
 
 mysqli_select_db($con, "practicas");
 
 // Obtener el ID del usuario
-$sql2 = "SELECT id_usuario FROM usuario WHERE correo_electronico='$correo_electronico'";
-$res2 = mysqli_query($con, $sql2);
-$fila2 = mysqli_fetch_assoc($res2);
-$usuario_compartir = $fila2['id_usuario'];
+
 
 // Verificar si ya se compartió el evento con el mismo correo electrónico
 $sql_verificar = "SELECT COUNT(*) AS total FROM usuario_evento WHERE id_evento='$id_evento' AND id_usuario='$usuario_compartir'";

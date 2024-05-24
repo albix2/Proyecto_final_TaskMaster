@@ -3,7 +3,7 @@ include "../login/conexion.php";
 
 session_start();
 
-if (!isset($_SESSION['nombre'])) {
+if (!isset($_SESSION['id_usuario'])) {
     header("Location: ../index.php");
     exit;
 }
@@ -12,15 +12,11 @@ setlocale(LC_ALL,"es_ES");
 
 include "../conexion/config.php";
 
-$usuario = $_SESSION['nombre'];
+$id_usuario = $_SESSION['id_usuario'];
 
 // Obtener el ID del usuario
 
-mysqli_select_db($con, "practicas");
-$sql = "SELECT id_usuario FROM usuario WHERE nombre='$usuario'";
-$res = mysqli_query($con, $sql);
-$fila = mysqli_fetch_assoc($res);
-$id_usuario = $fila['id_usuario'];
+
 
 $idEvento = $_POST['idEvento'];
 $color = $_POST["color"];
