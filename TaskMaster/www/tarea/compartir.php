@@ -21,6 +21,13 @@ mysqli_select_db($con, "practicas");
 
 // Obtener el ID del usuario
 
+include('../login/config.php');
+$SqlEventos   = "SELECT * FROM usuario 
+where correo_electronico  = '$correo_electronico'"; // Seleccionar solo eventos del usuario actual
+$resulEventos = mysqli_query($con, $SqlEventos); 
+
+$fila = mysqli_fetch_assoc($resulEventos);
+$usuario_compartir = $fila['id_usuario'];
 
 // Verificar si ya se compartió el evento con el mismo correo electrónico
 $sql_verificar = "SELECT COUNT(*) AS total FROM usuario_evento WHERE id_evento='$id_evento' AND id_usuario='$usuario_compartir'";
