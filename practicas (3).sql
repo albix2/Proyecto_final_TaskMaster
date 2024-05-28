@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: db
--- Tiempo de generación: 20-05-2024 a las 19:25:40
--- Versión del servidor: 8.3.0
--- Versión de PHP: 8.2.8
+-- Servidor: localhost:3306
+-- Tiempo de generación: 27-05-2024 a las 15:36:41
+-- Versión del servidor: 8.0.36-2ubuntu3
+-- Versión de PHP: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,7 +43,9 @@ INSERT INTO `archivos` (`id_archivo`, `nombre_archivo`, `id_evento`) VALUES
 (3, 0x2e2e2f6669636865726f732f41335f416c62615f44656c5f50696e6f5f416c756d6e6f202831292e706466, 4),
 (4, 0x2e2e2f6669636865726f732f466564657269636f2044656c2070696e6f2073616e6368657a2e706466, 4),
 (5, 0x2e2e2f6669636865726f732f466564657269636f2044656c2070696e6f2073616e6368657a2e706466, 6),
-(6, 0x2e2e2f6669636865726f732f41335f416c62615f44656c5f50696e6f5f416c756d6e6f202831292e706466, 7);
+(6, 0x2e2e2f6669636865726f732f41335f416c62615f44656c5f50696e6f5f416c756d6e6f202831292e706466, 7),
+(7, 0x2e2e2f6669636865726f732f696d616765732e706e67, 12),
+(8, 0x2e2e2f6669636865726f732f4d616e6966696573746f5f32303234353230313533382e706466, 12);
 
 -- --------------------------------------------------------
 
@@ -73,7 +75,26 @@ INSERT INTO `chat` (`id_chat`, `id_evento`, `id_usuario`, `mensaje`, `fecha_envi
 (7, 6, 1, 'kjhkhj', '2024-05-18 15:44:00'),
 (8, 6, 2, 'gfdgd', '2024-05-18 15:44:02'),
 (9, 6, 2, 'hkhj', '2024-05-18 15:46:00'),
-(10, 6, 1, 'khjk', '2024-05-18 15:46:02');
+(10, 6, 1, 'khjk', '2024-05-18 15:46:02'),
+(11, 6, 1, 'wrwe', '2024-05-21 11:05:48'),
+(12, 6, 1, 'rwer', '2024-05-21 11:05:50'),
+(13, 6, 1, 'rtyrty', '2024-05-21 11:08:20'),
+(14, 6, 1, 'yrty', '2024-05-21 11:08:22'),
+(15, 6, 1, 'yrt', '2024-05-21 11:08:25'),
+(16, 6, 1, 'yrt', '2024-05-21 11:08:26'),
+(17, 6, 1, 'yrt', '2024-05-21 11:08:28'),
+(18, 6, 1, 'yrt', '2024-05-21 11:08:30'),
+(19, 6, 1, 'fsdf\r\npp+\r\n', '2024-05-21 11:12:36'),
+(20, 7, 1, 'tertert', '2024-05-21 11:29:44'),
+(21, 6, 2, 'tert', '2024-05-21 14:33:59'),
+(22, 6, 1, 'hfgh\r\n', '2024-05-21 14:34:08'),
+(23, 6, 1, 'hfghfghfhgfghfghfghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh', '2024-05-21 14:34:19'),
+(24, 6, 1, 'gfdg xgdf dfgdf dfgfdgdf fgdgfd', '2024-05-21 14:47:50'),
+(25, 6, 1, 'gdfgdfg gdfgfd gdfg gfdg gdgffd gdgdf gfdfgdf gdfgfd gdfgdf gfdgdfg gfdgdf gfdgdf gfdgfd ', '2024-05-21 14:48:06'),
+(26, 6, 1, 'Hola', '2024-05-27 07:41:47'),
+(31, 12, 2, 'hola', '2024-05-27 12:55:51'),
+(33, 12, 2, 'No he estado ocupado esta semana', '2024-05-27 12:56:26'),
+(35, 12, 1, 'Hola', '2024-05-27 14:27:27');
 
 -- --------------------------------------------------------
 
@@ -183,8 +204,16 @@ CREATE TABLE `eventoscalendar` (
 --
 
 INSERT INTO `eventoscalendar` (`id`, `evento`, `color_evento`, `fecha_inicio`, `fecha_fin`, `descripcion`, `archivos`, `id_etiquetas`, `id_estado`) VALUES
-(6, 'Mi Primera Prueba', '#000000', '2024-05-09 00:00:00', '2024-05-10 00:00:00', 'Esta etiqueta se refiere a dddtemas relacionados con los estudios.', NULL, 2, 1),
-(7, 'proyecto', '#000000', '2024-05-22 00:00:00', '2024-05-23 00:00:00', 'estado', NULL, 2, 2);
+(12, 'Investigación sobre IA', '#000000', '2024-06-01 00:00:00', '2024-06-07 00:00:00', 'Investigar sobre la historia de la inteligencia artificial y su impacto en la sociedad moderna.', NULL, 4, 1),
+(13, 'Ensayo de Educación Ambiental', '#ec1818', '2024-05-08 00:00:00', '2024-05-14 00:00:00', ' Redactar un ensayo de 1500 palabras sobre la importancia de la educación ambiental en las escuelas.', NULL, 3, 3),
+(14, ' Aprender a Tocar Guitarra', '#14d8ff', '2024-06-01 00:00:00', '2024-06-30 00:00:00', 'Inscribirse en un curso online para aprender a tocar la guitarra y practicar diariamente.', NULL, 7, 1),
+(15, 'Presentación sobre Cambio Climático', '#46b96e', '2024-07-01 00:00:00', '2024-07-07 00:00:00', 'Preparar una presentación en PowerPoint sobre los efectos del cambio climático en los océanos.', NULL, 3, 1),
+(16, 'Práctica de Idioma', '#ecb622', '2024-05-22 00:00:00', '2024-05-28 00:00:00', 'Dedicar 30 minutos diarios a practicar un nuevo idioma en una aplicación como Duolingo.', NULL, 3, 2),
+(17, 'Organización del Escritorio', '#0326d3', '2024-05-16 00:00:00', '2024-05-17 00:00:00', 'Limpiar y organizar tu escritorio de trabajo o estudio.', NULL, 8, 3),
+(18, 'Voluntariado', '#e60588', '2024-05-18 00:00:00', '2024-05-20 00:00:00', ' Dedicar una tarde a la semana para hacer trabajo voluntario en una organización local.', NULL, 4, 1),
+(19, 'Cocinar una Nueva Receta', '#ca471c', '2024-05-14 00:00:00', '2024-05-15 00:00:00', 'Encontrar una receta que nunca hayas probado y cocinarla.', NULL, 8, 4),
+(20, 'Proyecto de Bricolaje', '#97f298', '2024-05-28 00:00:00', '2024-06-01 00:00:00', 'Realizar un proyecto de bricolaje, como construir una estantería o decorar una habitación.', NULL, 3, 1),
+(21, 'Planificación de un Viaje', '#f09e9e', '2024-05-02 00:00:00', '2024-05-03 00:00:00', 'Investigar y planificar un viaje a una ciudad que siempre has querido visitar.', NULL, 10, 3);
 
 -- --------------------------------------------------------
 
@@ -208,7 +237,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `apellido`, `contraseña`, `ciudad`, `correo_electronico`, `imagen`) VALUES
 (1, 'Alba', 'Ciges', '1234', 3, 'albadelpino1@gmail.com', 0x696d6167656e65732f757365725f6465666563746f2e706e67),
-(2, 'Juan', 'Perez', '1234', 1, 'juan@gmail.com', NULL),
+(2, 'Juan', 'Perez', '1234', 1, 'juan@gmail.com', 0x2e2e2f6669636865726f732f70657266696c2e6a7067),
 (3, 'María', 'González', '1234', 2, 'maria@hotmail.com', NULL),
 (4, 'Carlos', 'Sánchez', '1234', 3, 'carlos@gmail.com', NULL),
 (5, 'Iker', 'Lopez', '1234', 9, 'ikerlopez@gmail.com', 0x696d6167656e65732f757365725f6465666563746f2e706e67),
@@ -231,9 +260,18 @@ CREATE TABLE `usuario_evento` (
 --
 
 INSERT INTO `usuario_evento` (`id_usuario_evento`, `id_evento`, `id_usuario`) VALUES
-(6, 6, 1),
-(7, 7, 1),
-(8, 6, 2);
+(13, 12, 1),
+(14, 13, 1),
+(15, 14, 1),
+(16, 15, 1),
+(17, 16, 1),
+(18, 17, 1),
+(19, 18, 1),
+(20, 19, 1),
+(21, 20, 1),
+(22, 21, 1),
+(23, 12, 2),
+(24, 14, 3);
 
 --
 -- Índices para tablas volcadas
@@ -309,13 +347,13 @@ ALTER TABLE `usuario_evento`
 -- AUTO_INCREMENT de la tabla `archivos`
 --
 ALTER TABLE `archivos`
-  MODIFY `id_archivo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_archivo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id_chat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_chat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -327,7 +365,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `eventoscalendar`
 --
 ALTER TABLE `eventoscalendar`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -339,7 +377,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
-  MODIFY `id_usuario_evento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_usuario_evento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas

@@ -484,9 +484,15 @@ flex-direction: row;
       border-bottom: 0;
     }
   /*chat_per*/
+  .principal-chatper{
+    width: 100%;
+  }
+  .principal-chat{
+    width: 100%;
+  }
   #chat{
     background-color:#fff ;
-    height:91.5% ;
+    height:89.5% ;
     width: 100%;
     overflow-y: scroll;
   
@@ -517,6 +523,10 @@ flex-direction: row;
   
    
   } 
+  /* listado */
+  .principal-listado {
+    width: 100%;
+  }
   /*perfil*/
   .imagen{
     width: 50%;
