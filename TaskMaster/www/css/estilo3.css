@@ -21,34 +21,32 @@
   .titulo div {
   width: 100%;
   display: flex;
+  margin: 1%;
   }
   .titulo img {
-   width: 10vh;
-  height: 10vh;
-  border-radius: 100px ;
+   width: 8vh;
+  height: 8vh;
+  border-radius:400px ;
   }
   .titulo div  h1{
-
-  display:flex;
   display: flex;
-  color: #fff;
+  color: #ffffff;
   margin-left: 2%;
   align-items: center;
-  font-size:3.5vh;
+  font-size:2em;
   }
   .titulo a {
-    display:flex;
     display: flex;
-    color: #fff;
+    color: #ffffff;
     margin-right: 2%;
     align-items: center;
-    font-size:3.5vh;
+    font-size:3.5em;
   }
   .principal{
   width: 100%;
     display: flex;
     flex-direction: row;
-    height: 88vh; 
+    height: 90vh; 
   }
 
   .enlaces{
@@ -97,7 +95,7 @@
      margin-right: 1%;
      color:#4A4A4A;
     margin-left: 1%;
-     height: 86vh;   
+     height: 99vh;   
     
    }
 
@@ -427,8 +425,12 @@ flex-direction: row;
          color: #fff;
          text-decoration: none;
        }
+       /*calendario*/
+    .principal-calendario{
+      width: 100%;
+    }
     /* tarea */
-    principal-tarea{
+    .principal-tarea{      
       width: 100%;
       padding: 2%;
       overflow-y: scroll;
@@ -483,6 +485,10 @@ flex-direction: row;
     .tabla td:last-child {
       border-bottom: 0;
     }
+    /*kanban*/
+    .principal-kanban{
+      width: 100%;
+    }
   /*chat_per*/
   .principal-chatper{
     width: 100%;
@@ -534,5 +540,38 @@ flex-direction: row;
   .datos {
     margin-top:5%;
   }
+  body {
+    font-size: 20px; /* Aumenta el tamaño de la fuente */
   }
-  
+
+  .modal-dialog {
+    max-width: 800px; /* Aumenta el ancho del modal */
+  }
+
+  .form-control {
+    font-size: 1.2em; /* Aumenta el tamaño de la fuente en los formularios */
+  }
+
+  .modal-title {
+    font-size: 2em; /* Aumenta el tamaño de la fuente del título del modal */
+  }
+}
+@media (max-width: 767px) {
+  .tabla td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 10em;
+    text-align: right;
+  }
+  .modal-dialog {
+    max-width: 100%; /* Asegúrate de que el modal ocupe el ancho completo de la pantalla */
+  }
+
+  .form-control {
+    font-size: 1em; /* Ajusta el tamaño de la fuente para dispositivos móviles */
+  }
+
+  .modal-title {
+    font-size: 1.5em; /* Ajusta el tamaño de la fuente del título del modal para dispositivos móviles */
+  }
+}

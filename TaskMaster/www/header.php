@@ -35,7 +35,7 @@ $id_usuario = $_SESSION['id_usuario'];
 <header class="titulo"> 
     <div>
         <img src="../imagenes/logo2.png" alt="">
-    <h1 class="fw-bold fs-5">Gestor de Tareas</h1>
+    <h1 >Gestor de Tareas</h1>
     </div>
    
     <a href="../cerrarSesion.php" role="button">

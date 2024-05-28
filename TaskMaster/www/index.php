@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/login/index.css">
-    <script src="script.js" defer></script>
+    <script src="/login/script.js" defer></script>
 </head>
 <body>
     <div class="form-wrap">
@@ -35,7 +35,7 @@
                     <select  name="ciudad" >
                         <option   selected disabled>Seleccione la ciudad</option>
                         <?php
-                        include("conexion.php");
+                        include("login/conexion.php");
                         mysqli_select_db($conn, "practicas");
                         $consultar = "SELECT * FROM ciudad";
                         $sql = mysqli_query($conn, $consultar);

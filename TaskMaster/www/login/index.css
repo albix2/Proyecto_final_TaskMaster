@@ -10,7 +10,7 @@ a {
   color: #666;
   text-decoration: none; }
   a:hover {
-    color: #4FDA8C; }
+    color: #1A2E45; }
 
 input {
   font: 16px/26px "Raleway", sans-serif; }
@@ -36,11 +36,11 @@ body {
         padding: 0.5em 0;
         text-align: center;
         font-weight: 400;
-        background-color: #82d3ad;
+        background-color: #78adea;
         display: block;
-        color: #080707; }
+        color: #fff; }
         .form-wrap .tabs h3 a.active {
-          background-color:#17654a; }
+          background-color:#1A2E45; }
   .form-wrap .tabs-content {
     padding: 1.5em; }
     .form-wrap .tabs-content div[id$="tab-content"] {
@@ -53,10 +53,10 @@ body {
           height: 42px;
         
         border-radius: 0;
-        background: #d8f3e3;
-        color: #b3e7cb;
+        background: #78adea;
+        color: #1A2E45;
         font-size: 1em;
-        color: #17654a;
+        color: #1A2E45;
         font-family: 
         'Quicksand', sans-serif;
         border:2px solid rgba(0,0,0,0.2);
@@ -121,7 +121,7 @@ body {
       background-color: transparent;
       top: 4px;
       left: -10px;
-      border: 3px solid #28A55F;
+      border: 3px solid #1A2E45;
       border-top: none;
       border-right: none;
       -webkit-transform: rotate(-45deg);
@@ -134,3 +134,11 @@ body {
     .form-wrap .help-text p {
       text-align: center;
       font-size: 14px; }
+
+      @media screen and (max-width: 1500px) {
+        
+        .form-wrap{
+            width: 80%;
+        }
+
+      }
