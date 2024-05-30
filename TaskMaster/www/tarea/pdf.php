@@ -1,5 +1,7 @@
 <?php
 require_once('../conexion/config.php');
+require('../fpdf/fpdf.php');
+
 $id = $_REQUEST['id'];
 mysqli_select_db($con, "practicas");
 session_start();
@@ -9,43 +11,43 @@ if (!isset($id_usuario)) {
     exit;
 }
 
-
-
-
-$consultar = "SELECT ev.evento, ev.archivos, ev.descripcion, ev.fecha_fin, ev.fecha_inicio, es.nombre_estado FROM eventoscalendar ev 
+$consultar = "SELECT ev.evento, ev.descripcion, ev.fecha_fin, ev.fecha_inicio, es.nombre_estado FROM eventoscalendar ev 
         INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
         INNER JOIN usuario us ON ue.id_usuario=us.id_usuario 
-        inner join estado es on es.id_estado = ev.id_estado
-        WHERE ue.id_usuario = $id_usuario and ev.id = $id";
+        INNER JOIN estado es ON es.id_estado = ev.id_estado
+        WHERE ue.id_usuario = $id_usuario AND ev.id = $id";
 
 $resultset = mysqli_query($con, $consultar);
-$columnWidths = array(30, 55, 25, 30, 30, 25); 
-$columnWidth = array(30, 55, 25, 30, 30, 25); 
 
-$sql2 = "SELECT evento, id FROM eventoscalendar where id = $id ";
-$res2 = mysqli_query($con, $sql2);
-$fila2 = mysqli_fetch_assoc($res2);
-$nombre_pdf = $fila2['evento']; 
-$id_pdf = $fila2['id']; 
-require('../fpdf/fpdf.php');
+// Crear instancia de FPDF
 $pdf = new FPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','B',7);
-while ($field_info = mysqli_fetch_field($resultset)) {
-    $pdf->Cell(array_shift($columnWidths),12,$field_info->name,1);
-}
-while($rows = mysqli_fetch_assoc($resultset)) {
-    $pdf->SetFont('Arial','',7);
+$pdf->SetFont('Arial', 'B', 7);
+
+// Obtener información sobre los campos
+$field_names = array();
+
+// Imprimir encabezados de manera vertical
+$pdf->SetFont('Arial', 'B', 7);
+foreach ($field_names as $field_name) {
+    $pdf->Cell(30, 10, utf8_decode($field_name), 1);
     $pdf->Ln();
-    foreach($rows as $column) {
-        $pdf->Cell(array_shift($columnWidth),7,$column,1);
+}
+
+// Imprimir datos
+$pdf->SetFont('Arial', '', 7);
+while ($row = mysqli_fetch_assoc($resultset)) {
+    foreach ($row as $column_name => $column) {
+        // Imprimir el nombre del campo y su valor
+        $pdf->Cell(30, 10, utf8_decode($column_name), 1);
+        $pdf->Cell(150, 10, utf8_decode($column), 1);
+        $pdf->Ln();
     }
+    $pdf->Ln();
 }
 
 // Generar el PDF y enviarlo por WhatsApp
-$pdf->Output('F', '../pdf/'. $nombre_pdf.$id_pdf  . '.pdf');// Guardar el PDF temporalmente en el servidor
-$pdf->Output('I'); // Enviar el PDF al navegador
-
-// Luego puedes eliminar el PDF temporal si no lo necesitas más
-unlink('temp_pdf.pdf');
+$pdf_path = '../pdf/'.$id.'.pdf';
+$pdf->Output('F', $pdf_path); // Guardar el PDF
+$pdf->Output('I'); // Mostrar el PDF en el navegador
 ?>

@@ -40,7 +40,13 @@
     color: #ffffff;
     margin-right: 2%;
     align-items: center;
-    font-size:3.5em;
+    font-size:1em;
+  }
+  .titulo p{
+    color:#fff;
+    font-size:1em;
+    margin-top:10%;
+    margin-right: 50%;
   }
   .principal{
   width: 100%;

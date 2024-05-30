@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Actualizar mi Eventox</h5>
+        <h5 class="modal-title">Actualizar  Evento </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -28,7 +28,7 @@
 		</div>
 
     <div class="form-group">
-      <label for="" class="form-label"><b>Nombre de la etiqueta</b></label>
+      <label for="" class="col-sm-12  form-label">Nombre de la etiqueta</label>
       <div class="col-sm-10">
       <select name="id_etiqueta" class="form-control">
           <option selected disabled>Seleccione la categoria</option>
@@ -53,7 +53,7 @@
     </div>
 
     <div class="form-group">
-      <label for="" class="form-label"><b>Estado</b></label>
+      <label for="" class="col-sm-12 form-label">Estado</label>
       <div class="col-sm-10">
       <select name="id_estado" class="form-control">
           <option selected disabled>Seleccione la categoria</option>
@@ -93,7 +93,7 @@
   
 
   <div class="form-group">
-    <label for="color" class="form-label"><b>color </b></label>
+    <label for="color" class="col-sm-12  form-label">color </label>
     <div class="col-sm-10">
     <input type="color"
       class="form-control" name="color" id="color"  required aria-describedby="helpId" placeholder="color">

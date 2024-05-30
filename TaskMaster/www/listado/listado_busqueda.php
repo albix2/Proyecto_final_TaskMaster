@@ -120,39 +120,43 @@ if (!$result) {
                         </a>
                     </td>
                     <td data-label="Compartido por:">
-                        <?php
+                       <?php
                         $compartir = $registro['id'];
-                        $SqlEventos2 = "SELECT us.nombre FROM eventoscalendar ev 
-                                        INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
-                                        INNER JOIN usuario us ON ue.id_usuario = us.id_usuario 
-                                        WHERE ev.id = $compartir";
-                        $resulEventos2 = mysqli_query($con, $SqlEventos2);
-                        while ($registro2 = mysqli_fetch_assoc($resulEventos2)) {
-                            $nombre_compartir = $registro2['nombre'];
-                            echo $nombre_compartir === $_SESSION['id_usuario'] ? "<p>Yo</p>" : "<p>{$registro2['nombre']}</p>";
-                        }
-                        ?>
+                        $SqlEventos2   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
+                        $id_usuario = $_SESSION['id_usuario'];
+                        $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+
+                        $SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario";
+                  
+                        $resulEventos = mysqli_query($conn, $SqlEventos);
+                        $registro = mysqli_fetch_assoc($resulEventos);
+                        $usuario = $registro['nombre'];
+                while($registro2 = mysqli_fetch_assoc($resulEventos2)) {
+                    $nombre_compartir =$registro2['nombre'];
+                     
+                    if($nombre_compartir == $usuario) {
+                        ?>   
+                   <P>Yo</P>
+                   
+                    <?php
+                    } else{
+                        
+                ?>
+               <div>
+               <p><?php echo $registro2['nombre'];?></p>
+               <a href="deletecompartir.php?id=<?php echo $registro2['id']; ?>&usuario=<?php echo $registro2['id_usuario']; ?>">
+  <i class="bi-trash px-1" style="font-size: 1rem; color:red;"></i>
+</a>               </div>
+                
+                <?php
+                }
+                }
+                ?>
+                   
                     </td>
-                    <td data-label="Compartir">
-                        <a type="button" data-bs-toggle="modal" data-bs-target="#compartir_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <i class="bi bi-people-fill" style="font-size: 2rem; color:blue;"></i>
-                        </a>
-                    </td>
-                    <td data-label="Actualizar">
-                        <a type="button" data-bs-toggle="modal" data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <i class="bi-pencil px-1" style="font-size: 2rem; color:green;"></i>
-                        </a>
-                    </td>
-                    <td data-label="Descarga">
-                        <a type="button" data-bs-toggle="modal" data-bs-target="#pdf_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <i class="bi bi-download" style="font-size: 2rem; color:blue;"></i>
-                        </a>
-                    </td>
-                    <td data-label="Borrar">
-                        <a href="deleteEvento.php?id=<?php echo $registro['id']; ?>">
-                            <i class="bi-trash px-1" style="font-size: 2rem; color:red;"></i>
-                        </a>
-                    </td>
+                    
                 </tr>
                 <?php
                 include('modalcompartir.php');

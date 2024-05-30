@@ -6,7 +6,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Crear un nuevo evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -41,8 +41,8 @@
         </div>
       </div>
   
-      <div class="mb-3">
-        <label for="" class="form-label"><b>Nombre de la etiqueta</b></label>
+      <div class="form-group">
+        <label for="" class="col-sm-12 form-label">Nombre de la etiqueta</label>
         <div class="col-sm-10">
         <select name="id_etiqueta" class="form-control">
             <option selected disabled>Seleccione la categoria</option>
@@ -66,8 +66,8 @@
       </div>
       </div>
   
-            <div class="mb-3">
-              <label for="" class="form-label"><b>Estado</b></label>
+            <div class="form-group">
+              <label for="" class="col-sm-12 form-label">Estado</label>
               <div class="col-sm-10">
               <select name="id_estado" class="form-control">
                   <option selected disabled>Seleccione la categoria</option>
@@ -99,8 +99,8 @@
         </div>
       </div>
 
-      <div class="mb-3">
-      <label for="" class="form-label"><b>Imagen</b></label>
+      <div class="form-group">
+      <label for="" class="col-sm-12 form-label">Imagen</label>
       <div class="col-sm-10">
       <input type="file"
         class="form-control" name="fotografia" id="fotografia" required accept="image/*, .pdf, .doc, .docx, .odt">

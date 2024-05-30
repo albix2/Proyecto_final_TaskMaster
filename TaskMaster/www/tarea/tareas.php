@@ -69,9 +69,16 @@ include "../header.php";
                         inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
                         $id_usuario = $_SESSION['id_usuario'];
                         $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+
+                        $SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario";
+                  
+                        $resulEventos = mysqli_query($conn, $SqlEventos);
+                        $registro = mysqli_fetch_assoc($resulEventos);
+                        $usuario = $registro['nombre'];
                 while($registro2 = mysqli_fetch_assoc($resulEventos2)) {
                     $nombre_compartir =$registro2['nombre'];
-                    // echo $usuario;
+                     
                     if($nombre_compartir == $usuario) {
                         ?>   
                    <P>Yo</P>
@@ -80,8 +87,12 @@ include "../header.php";
                     } else{
                         
                 ?>
-               
-                <p><?php echo $registro2['nombre'];?></p>
+               <div>
+               <p><?php echo $registro2['nombre'];?></p>
+               <a href="deletecompartir.php?id=<?php echo $registro2['id']; ?>&usuario=<?php echo $registro2['id_usuario']; ?>">
+  <i class="bi-trash px-1" style="font-size: 1rem; color:red;"></i>
+</a>               </div>
+                
                 <?php
                 }
                 }

@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Descargar evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -39,21 +39,7 @@
         
         ?>
         <br>
-        <form  name="formEvento" id="formEvento" enctype="multipart/form-data" action="nuevo_archivo.php?id=<?php echo $registro['id']; ?>" class="form-horizontal" method="POST">
-        <input type="hidden" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro['id']; ?>">  
-        <div class="mb-3">
-      <label for="" class="form-label"><b>Imagen</b></label>
-      <div class="col-sm-10">
-      <input type="file"
-        class="form-control" name="fotografia" id="fotografia" required accept="image/*, .pdf, .doc, .docx, .odt">
-      <small id="helpId" class="form-text text-muted">fotografia</small>
-    </div>
-    </div> 
-    
-    <button type="submit" class="btn btn-outline-success"><i class="bi bi-plus-circle" style="color: green;"></i></button>
-        </form>
         
-        <!-- <a href="nuevo_archivo.php?id=<?php echo $registro['id']; ?>"><i class="bi bi-plus-circle" style="font-size: 2rem; color:green;"></i> </a> -->
       </div>
     </div>
   </div>

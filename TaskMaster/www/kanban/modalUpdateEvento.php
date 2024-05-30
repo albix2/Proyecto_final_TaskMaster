@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="actualizareventoLabel">Modal title</h5>
+        <h5 class="modal-title" id="actualizareventoLabel">Actualizar evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -115,7 +115,42 @@ if ($registro = mysqli_fetch_assoc($registros)) {
     <small id="helpId" class="form-text text-muted">color</small>
   </div>
   </div>
- 
+  <label for="compartido" class="form-label"><b>compartido por : </b></label>
+
+  <?php
+                        $compartir = $registro['id'];
+                        $SqlEventos3   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
+                        $id_usuario = $_SESSION['id_usuario'];
+                        $resulEventos3 = mysqli_query($conn, $SqlEventos3);
+
+                        $SqlEventos4   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario = $id_usuario";
+                  
+                        $resulEventos4 = mysqli_query($conn, $SqlEventos4);
+                        $registro4 = mysqli_fetch_assoc($resulEventos4);
+                        $usuario = $registro4['nombre'];
+                        
+                while($registro2 = mysqli_fetch_assoc($resulEventos3)) {
+                    $nombre_compartir =$registro2['nombre'];
+                     
+                    if($nombre_compartir == $usuario) {
+                        ?>   
+                   <P>Yo</P>
+                   
+                    <?php
+                    } else{
+                        
+                ?>
+               <div>
+                
+               <p><?php echo $registro2['nombre'];?></p>
+                </div>
+                
+                <?php
+                }
+                }
+                ?>
 
         <!-- Campo oculto para almacenar la ruta del archivo actual -->
         
@@ -123,6 +158,8 @@ if ($registro = mysqli_fetch_assoc($registros)) {
      
 
 	   <div class="modal-footer">
+     <a href="deleteEvento.php?id=<?php echo $registro['id']; ?>"><i class="bi-trash px-1" style="font-size: 2rem; color:red;"></i> </a> 
+
       	<button type="submit" class="btn btn-success">Guardar Evento</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
     	</div>

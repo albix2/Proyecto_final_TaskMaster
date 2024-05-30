@@ -3,7 +3,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="actualizareventoLabel">Modal title</h5>
+        <h5 class="modal-title" id="actualizareventoLabel">Actualizar evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -41,7 +41,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
 		</div>
 
     <div class="form-group">
-      <label for="" class="form-label"><b>Nombre de la etiqueta</b></label>
+      <label for="" class="col-sm-12 form-label">Nombre de la etiqueta</label>
       <div class="col-sm-10">
       <select name="id_etiqueta" class="form-control">
           <option selected disabled>Seleccione la categoria</option>
@@ -67,7 +67,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
     </div>
 
     <div class="form-group">
-      <label for="" class="form-label"><b>Estado</b></label>
+      <label for="" class="col-sm-12 form-label">Estado</label>
       <div class="col-sm-10">
       <select name="id_estado" class="form-control">
           <option selected disabled>Seleccione la categoria</option>
@@ -108,7 +108,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
   
 
   <div class="form-group">
-    <label for="color" class="form-label"><b>color </b></label>
+    <label for="color" class="col-sm-12 form-label">color </label>
     <div class="col-sm-10">
     <input type="color"
       class="form-control" name="color" id="color" value="<?php echo $registro['color_evento'];?>" required aria-describedby="helpId" placeholder="color">

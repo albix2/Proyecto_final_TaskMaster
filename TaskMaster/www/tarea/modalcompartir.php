@@ -6,7 +6,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Compartir evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
     
@@ -37,7 +37,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
       <input type="hidden" id="datoNombre" type="text" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro['id']; ?>">      
 
     <div class="form-group">
-        <label for="evento" class="col-sm-12 control-label">correo Electronico</label>
+        <label for="evento" class="col-sm-12 control-label">Correo Electronico</label>
         <div class="col-sm-10">
           <input  id="datotelefono" type="text" type="text" class="form-control" name="correo_electronico" id="correo_electronico" placeholder="Nombre del Evento" required/>
         </div>

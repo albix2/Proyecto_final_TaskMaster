@@ -10,7 +10,6 @@ if (!isset($_SESSION['id_usuario'])) {
 $id = $_REQUEST['id'];
 $id_usuario = $_SESSION['id_usuario'];
 
-
 mysqli_select_db($con, "practicas");
 
 $sql = "SELECT ev.evento, ev.descripcion, ev.fecha_inicio, ev.fecha_fin, es.nombre_estado, et.nombre_etiqueta
@@ -57,23 +56,37 @@ $resultset = mysqli_query($con, $sql);
 if (!$resultset) {
     die("Error en la consulta: " . mysqli_error($con));
 }
- 
+require('../fpdf/FPDF.php');
 
-
-require('../fpdf/fpdf.php');
+// Crear instancia de FPDF
 $pdf = new FPDF();
 $pdf->AddPage();
-$pdf->SetFont('Arial','B',7);
-while ($field_info = mysqli_fetch_field($resultset)) {
-$pdf->Cell(38,12,$field_info->name,1);
+$pdf->SetFont('Arial', 'B', 7);
+
+// Obtener información sobre los campos
+$field_names = array();
+
+// Imprimir encabezados de manera vertical
+$pdf->SetFont('Arial', 'B', 7);
+foreach ($field_names as $field_name) {
+    $pdf->Cell(30, 10, utf8_decode($field_name), 1);
+    $pdf->Ln();
 }
-while($rows = mysqli_fetch_assoc($resultset)) {
-$pdf->SetFont('Arial','',7);
-$pdf->Ln();
-foreach($rows as $column) {
-$pdf->Cell(38,7,$column,1);
+
+// Imprimir datos
+$pdf->SetFont('Arial', '', 7);
+while ($row = mysqli_fetch_assoc($resultset)) {
+    foreach ($row as $column_name => $column) {
+        // Imprimir el nombre del campo y su valor
+        $pdf->Cell(30, 10, utf8_decode($column_name), 1);
+        $pdf->Cell(150, 10, utf8_decode($column), 1);
+        $pdf->Ln();
+    }
+    $pdf->Ln();
 }
-}
-$pdf->Output();
-?>
+
+// Generar el PDF y enviarlo por WhatsApp
+$pdf_path = '../pdf/'.$id.'.pdf';
+$pdf->Output('F', $pdf_path); // Guardar el PDF
+$pdf->Output('I'); // Mostrar el PDF en el navegador
 ?>

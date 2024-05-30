@@ -12,7 +12,12 @@ if (!isset($_SESSION['id_usuario']) || empty($_SESSION['id_usuario'])) {
 
 $id_usuario = $_SESSION['id_usuario'];
 
-
+        // echo $id_evento;
+        
+        // Consulta SQL para obtener detalles del evento y el archivo asociado
+        $SqlUsuario = "SELECT * FROM usuario WHERE id_usuario = $id_usuario";
+        $resultUsuario = mysqli_query($conexion, $SqlUsuario);
+        $datosUsuario = mysqli_fetch_assoc($resultUsuario);
 ?>
 
 <!DOCTYPE html>
@@ -37,10 +42,15 @@ $id_usuario = $_SESSION['id_usuario'];
         <img src="../imagenes/logo2.png" alt="">
     <h1 >Gestor de Tareas</h1>
     </div>
-   
+    <a href="../perfil/perfil.php" role="button">
+    <p><?php echo $datosUsuario['nombre'] ; ?></p>
+                    
+    </a>
     <a href="../cerrarSesion.php" role="button">
+    
                     <i class="bi bi-box-arrow-right" style="font-size:2rem; color:#FA9E37;"></i>
     </a>
+    
 </header> 
 <?php
 include('login/config.php');
@@ -58,23 +68,23 @@ $resulEventos = mysqli_query($conexion, $SqlEventos);
     <section class="enlaces">
         <ul>
             <li>
-                <i class="bi bi-calendar3"> <a href="../calendario/calendario.php">calendario</a></i>
+                <i class="bi bi-calendar3"> <a href="../calendario/calendario.php">Calendario</a></i>
             </li>
             <li>
                 <i class="bi bi-calendar2-event"> <a href="../tarea/tareas.php">Tareas</a></i>
             </li>
             <li>        
-                <i class="bi bi-card-list"> <a href="../listado/listado.php">listado</a></i>
+                <i class="bi bi-card-list"> <a href="../listado/listado.php">Listado</a></i>
             </li>
             <li>
                <i class="bi bi-kanban"> <a href="../kanban/kanban.php">Kamban </a></i>
             </li>
             <li>
-                <i class="bi bi-chat-dots"> <a href="../chat/chat.php">chat</a></i>
+                <i class="bi bi-chat-dots"> <a href="../chat/chat.php">Chat</a></i>
             </li>
            
             <li>
-                <i class="bi bi-person-fill-gear"> <a href="../perfil/perfil.php">pefil</a></i>
+                <i class="bi bi-person-fill-gear"> <a href="../perfil/perfil.php">Pefil</a></i>
             </li>
         </ul>
     </section>
