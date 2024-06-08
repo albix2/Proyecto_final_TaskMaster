@@ -5,11 +5,27 @@ include('../conexion/config.php');
 $id_usuario = $_SESSION['id_usuario'];
 
 
-$SqlEventos3 = "SELECT us.*, ci.nombre_ciudad FROM usuario us 
-                INNER JOIN ciudad ci ON ci.id_ciudad = us.ciudad 
-                WHERE us.id_usuario = $id_usuario";
-$resulEventos3 = mysqli_query($con, $SqlEventos3);
-$registro3 = mysqli_fetch_assoc($resulEventos3);
+$sql3 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+              
+                $res3 = mysqli_query($conn, $sql3);
+                $fila3 = mysqli_fetch_assoc($res3);
+                $usuario3 = $fila3['nombre'];
+                if ($usuario3 == "admin"){
+                  $SqlEventos2   = "SELECT * FROM usuario WHERE id_usuario= $id_usuario";
+                  $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+             
+                  $registro3 = mysqli_fetch_assoc($resulEventos2);
+              
+                }
+                else{
+                  $SqlEventos2   = "SELECT * FROM usuario us 
+                  inner join ciudad ci 
+                  on ci.id_ciudad= us.ciudad  WHERE us.id_usuario= $id_usuario";
+                  $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+                
+                  $registro3 = mysqli_fetch_assoc($resulEventos2);
+                }
+               
 ?>
 
 <div class="modal fade" id="imagen_<?php echo $registro3['id_usuario']; ?>" tabindex="-1" aria-labelledby="imagen_<?php echo $registro3['id_usuario']; ?>" aria-hidden="true">

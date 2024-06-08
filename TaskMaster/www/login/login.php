@@ -21,8 +21,8 @@
     if ($row[0] > 0) {
         session_start();
         $_SESSION['id_usuario'] = $id_usuario;
-	
         header('Location: ../calendario/calendario.php?no=1');
+       
 	
         exit(); // Asegura que se detenga la ejecución después de la redirección
     } else {

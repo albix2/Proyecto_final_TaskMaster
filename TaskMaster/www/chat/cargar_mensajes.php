@@ -26,9 +26,9 @@ while($registro4 = mysqli_fetch_assoc($resulEventos3)) {
 <div>
     <p><?php echo $registro4['mensaje']; ?></p>
     <img src="../<?php echo $registro4['imagen']; ?>" alt="j">
-    <button  data-bs-toggle="modal" class="btn btn-link text-black p-0" data-bs-target="#chat_<?php echo $registro4['id_chat']; ?>" data-id="<?php echo $registro2['id_usuario']; ?>">
-    ...
-    </button>
+    <a href="deletechat.php?id=<?= $registro4['id_chat']; ?>">
+        <i class="bi-trash px-1" style="font-size: 2rem; color:red;"></i> 
+    </a>
 </div>
 </article>
 <?php

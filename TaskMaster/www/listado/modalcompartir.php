@@ -47,7 +47,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
  
       
        <div class="modal-footer">
-          <button type="submit" onclick="enviar()" id="btnEnviar" class="btn compartir btn-success">compartir</button>
+          <button type="submit" target="_blank" onclick="enviar()" id="btnEnviar" class="btn compartir btn-success">compartir</button>
           <button type="button"   class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
     </form>

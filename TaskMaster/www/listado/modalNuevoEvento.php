@@ -20,9 +20,9 @@
       </div>
   
       <div class="form-group">
-        <label for="descripcion" class="col-sm-12 control-label">Nombre del descripcion</label>
+        <label for="descripcion" class="col-sm-12 control-label">Descripción</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Nombre del Evento" />
+          <input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripción" />
         </div>
       </div>
   
@@ -45,7 +45,7 @@
         <label for="" class="form-label"><b>Nombre de la etiqueta</b></label>
         <div class="col-sm-10">
         <select name="id_etiqueta" class="form-control">
-    <option value="">Seleccione la categoría</option>
+    <option value="">Seleccione la etiqueta</option>
     <?php
     include("config.php");
     mysqli_select_db($con, "practicas");
@@ -71,7 +71,7 @@
               <label for="" class="form-label"><b>Estado</b></label>
               <div class="col-sm-10">
               <select name="id_estado" class="form-control">
-                  <option value="" >Seleccione la categoria</option>
+                  <option value="" >Seleccione el estado</option>
                   <?php
                   include("config.php");
                   mysqli_select_db($con, "practicas");
@@ -94,9 +94,9 @@
   
     
     <div class="form-group">
-        <label for="color" class="col-sm-12 control-label">color</label>
+        <label for="color" class="col-sm-12 control-label">Color</label>
         <div class="col-sm-10">
-          <input type="color" class="form-control" name="color" id="color" placeholder="Nombre del Evento" required/>
+          <input type="color" class="form-control" name="color" id="color" placeholder="Color" required/>
         </div>
       </div>
 

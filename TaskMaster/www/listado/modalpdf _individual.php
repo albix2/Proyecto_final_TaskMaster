@@ -1,8 +1,8 @@
-<div class="modal fade" id="pdf_<?php echo $registro['id']; ?>" tabindex="-1" aria-labelledby="pdf_<?php echo $registro['id']; ?>" aria-hidden="true">
+<div class="modal fade" id="pdf__individual<?php echo $registro['id']; ?>" tabindex="-1" aria-labelledby="pdf__individual<?php echo $registro['id']; ?>" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="pdf_<?php echo $registro['id']; ?>">Descargar evento:</h5>
+        <h5 class="modal-title" id="pdf__individual<?php echo $registro['id']; ?>">Descargar evento:</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -14,12 +14,12 @@
 
         if ($registro = mysqli_fetch_assoc($registros)) {
         ?>
-        <input type="hidden" id="datoNombre" type="text" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro['id']; ?>">      
+        <input type="hidden"  id="datoNombre" type="text" class="form-control" name="idEvento" id="idEvento" value="<?php echo $registro['id']; ?>">      
         <div class="form-group">
        
           <div class="col-sm-10">
-            <a href="excel.php?id=<?php echo $registro['id']; ?>"><i class="bi bi-filetype-xls" style="font-size: 2rem; color:black;"></i></a>
-            <a href="pdf.php?id=<?php echo $registro['id']; ?>" target="_blank"><i class="bi bi-file-earmark-pdf" style="font-size: 2rem; color:black;"></i></a>
+            <a  href="excel.php?id=<?php echo $registro['id']; ?>" target="_blank"><i class="bi bi-filetype-xls" style="font-size: 2rem; color:black;"></i></a>
+            <a target="_blank" href="pdf.php?id=<?php echo $registro['id']; ?>" target="_blank"><i class="bi bi-file-earmark-pdf" style="font-size: 2rem; color:black;"></i></a>
           </div>
         </div>
         <?php

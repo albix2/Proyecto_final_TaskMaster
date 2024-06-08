@@ -3,11 +3,27 @@
                 include('../conexion/config.php');
                 $id_usuario = $_SESSION['id_usuario'];
               
-                $SqlEventos2   = "SELECT * FROM usuario us 
-                inner join ciudad ci 
-                on ci.id_ciudad= us.ciudad  WHERE us.id_usuario= $id_usuario";
-                $resulEventos2 = mysqli_query($conn, $SqlEventos2);
-                $registro2 = mysqli_fetch_assoc($resulEventos2);
+                $sql3 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+              
+                $res3 = mysqli_query($conn, $sql3);
+                $fila3 = mysqli_fetch_assoc($res3);
+                $usuario3 = $fila3['nombre'];
+                if ($usuario3 == "admin"){
+                  $SqlEventos2   = "SELECT * FROM usuario WHERE id_usuario= $id_usuario";
+                  $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+             
+                  $registro3 = mysqli_fetch_assoc($resulEventos2);
+              
+                }
+                else{
+                  $SqlEventos2   = "SELECT * FROM usuario us 
+                  inner join ciudad ci 
+                  on ci.id_ciudad= us.ciudad  WHERE us.id_usuario= $id_usuario";
+                  $resulEventos2 = mysqli_query($conn, $SqlEventos2);
+                
+                  $registro3 = mysqli_fetch_assoc($resulEventos2);
+                }
+               
 ?>
 <div class="modal fade" id="perfil_<?php echo $registro2['id_usuario']; ?>" tabindex="-1" aria-labelledby="perfil_<?php echo $registro2['id_usuario']; ?>" aria-hidden="true">
   <div class="modal-dialog">
@@ -64,6 +80,12 @@
 			<label for="evento" class="col-sm-12 control-label">correo electronico</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" name="correo" id="correo" value="<?php echo $registro2['correo_electronico'];?>" placeholder="Nombre del Evento" required/>
+			</div>
+		</div>
+    <div class="form-group">
+			<label for="evento" class="col-sm-12 control-label">contraseña</label>
+			<div class="col-sm-10">
+				<input type="password" class="form-control" name="contraseña" id="contraseña" value="<?php echo $registro2['contraseña'];?>" placeholder="contraseña">
 			</div>
 		</div>
 

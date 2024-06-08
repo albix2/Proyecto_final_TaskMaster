@@ -78,7 +78,7 @@ if ($registro = mysqli_fetch_assoc($registros)) {
           <!-- Modal footer -->
           <div class="modal-footer">
           
-          <a onclick="enviar(<?php echo $registro['id']; ?>)" id="btnEnviar_<?php echo $registro['id']; ?>" href="#" class="btn btn-success">Enviar</a>
+          <a onclick="enviar(<?php echo $registro['id']; ?>)" target="_blank" id="btnEnviar_<?php echo $registro['id']; ?>" href="#" class="btn btn-success">Enviar</a>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </form>

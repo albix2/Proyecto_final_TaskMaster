@@ -7,7 +7,7 @@ include "../header.php";
 
     <section class="principal-tarea">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  nuevo evento
+    NUEVO EVENTO
 </button>
 
         <table  class="tabla">
@@ -31,7 +31,22 @@ include "../header.php";
             <tbody>
             <?php
                 include('../login/config.php');
-                $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+                $sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+                $res2 = mysqli_query($conn, $sql2);
+                $fila = mysqli_fetch_assoc($res2);
+                $usuario = $fila['nombre'];
+                if ($usuario == "admin"){
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+               
+                inner join estado es on es.id_estado=ev.id_estado 
+                inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+                -- inner join archivo_evento ae on ae.id_evento = ev.id
+                -- inner join archivos ar on ae.id_archivo= ar.id_archivo
+               "; // Seleccionar solo eventos del usuario actual
+                $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
+                else{
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
                 inner join usuario_evento ue on ue.id_evento = ev.id
                 inner join usuario us on ue.id_usuario=us.id_usuario 
                 inner join estado es on es.id_estado=ev.id_estado 
@@ -40,6 +55,8 @@ include "../header.php";
                 -- inner join archivos ar on ae.id_archivo= ar.id_archivo
                 where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
                 $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
+                
 
 ?>
                
@@ -64,39 +81,46 @@ include "../header.php";
 
                         <td data-label="Compartido por:">
                         <?php
+                        
                         $compartir = $registro['id'];
-                        $SqlEventos2   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        $SqlEventos6   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
                         inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
                         $id_usuario = $_SESSION['id_usuario'];
-                        $resulEventos2 = mysqli_query($conn, $SqlEventos2);
-
-                        $SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
-                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario";
-                  
-                        $resulEventos = mysqli_query($conn, $SqlEventos);
-                        $registro = mysqli_fetch_assoc($resulEventos);
-                        $usuario = $registro['nombre'];
-                while($registro2 = mysqli_fetch_assoc($resulEventos2)) {
-                    $nombre_compartir =$registro2['nombre'];
                      
-                    if($nombre_compartir == $usuario) {
-                        ?>   
-                   <P>Yo</P>
-                   
-                    <?php
-                    } else{
-                        
-                ?>
+                        $resulEventos6 = mysqli_query($conn, $SqlEventos6);
+                        if($usuario == "admin"){
+                            while( $registro6 = mysqli_fetch_assoc($resulEventos6)) {?>
+
+                            <p><?php echo $registro6['nombre'];?></p><?php
+                            }}else{
+                                    $SqlEventos7   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                                    inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario = $id_usuario";
+                            
+                                    $resulEventos7 = mysqli_query($conn, $SqlEventos7);
+                                    $registro7 = mysqli_fetch_assoc($resulEventos7);
+                                    $usuario = $registro7['nombre'];
+                                    
+                            while($registro5 = mysqli_fetch_assoc($resulEventos6)) {
+                                $nombre_compartir =$registro5['nombre'];
+                            
+                                if($nombre_compartir == $usuario) {
+                                    ?>   
+                            <P>Yo</P>
+                            
+                                <?php
+                                } else{
+                                    
+                            ?>
                <div>
-               <p><?php echo $registro2['nombre'];?></p>
-               <a href="deletecompartir.php?id=<?php echo $registro2['id']; ?>&usuario=<?php echo $registro2['id_usuario']; ?>">
-  <i class="bi-trash px-1" style="font-size: 1rem; color:red;"></i>
-</a>               </div>
+                
+               <p><?php echo $registro5['nombre'];?></p>
+                </div>
                 
                 <?php
                 }
-                }
+                }}
                 ?>
+
                         </td>
                         <td data-label="Compartir">
     <a type="button" data-bs-toggle="modal" data-bs-target="#compartir_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
@@ -109,7 +133,7 @@ include "../header.php";
     <a type="button" data-bs-toggle="modal" data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
         <i class="bi-pencil px-1" style="font-size: 2rem; color:green;"></i>
         
-    </a>
+    </a></td>
     <td data-label="descarga">
     <a type="button" data-bs-toggle="modal" data-bs-target="#pdf_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
     <i class="bi bi-download" style="font-size: 2rem; color:blue;"></i>

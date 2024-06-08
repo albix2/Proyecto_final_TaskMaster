@@ -7,7 +7,7 @@ include "../header.php";
 
 <section class="principal-listado">
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  listodo evento
+LISTAR EVENTO
 </button>
 <?php  
 include('modalNuevoEvento.php');
@@ -28,12 +28,9 @@ include('modalNuevoEvento.php');
                     <th scope="col">Estado</th>
                     <th scope="col">Etiqueta</th>
                     <th scope="col">Archivos</th>
+                    <th scope="col">Descargar</th>
                     <th scope="col">compartido por:</th>
-                    <th scope="col">compartir</th>
                     
-                    <th scope="col">actualizar</th>
-                    <th scope="col">pdf</th>
-                    <th scope="col">borrar</th>
                 </tr>
             </thead>
     

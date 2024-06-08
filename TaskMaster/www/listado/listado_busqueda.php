@@ -23,25 +23,50 @@ include('modalNuevoEvento.php');
 ?>
 
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  listodo evento
+listar
 </button>
 
 <div class="form-group">
  <?php
-// Construir la consulta SQL
-$sql = "SELECT ev.*, es.nombre_estado, et.nombre_etiqueta, us.nombre 
+ $sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+ $res2 = mysqli_query($conn, $sql2);
+ $fila = mysqli_fetch_assoc($res2);
+ $usuario = $fila['nombre'];
+ if ($usuario == "admin"){
+    $sql = "SELECT ev.*, es.nombre_estado, et.nombre_etiqueta 
         FROM eventoscalendar ev 
-        INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
-        INNER JOIN usuario us ON ue.id_usuario = us.id_usuario
+      
         INNER JOIN estado es ON es.id_estado = ev.id_estado
         INNER JOIN etiquetas et ON et.id_etiqueta = ev.id_etiquetas
-        WHERE us.id_usuario = $id_usuario";
+       where";
+       if (!empty($evento)) {
+        $evento = mysqli_real_escape_string($con, $evento);
+        $sql .= "  ev.evento LIKE '%$evento%'";
+    }
+ }
+ else{
+    $sql = "SELECT ev.*, es.nombre_estado, et.nombre_etiqueta
+    FROM eventoscalendar ev 
+    INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
+    INNER JOIN usuario us ON ue.id_usuario = us.id_usuario
+    INNER JOIN estado es ON es.id_estado = ev.id_estado
+    INNER JOIN etiquetas et ON et.id_etiqueta = ev.id_etiquetas
+    WHERE us.id_usuario = $id_usuario";
+    if (!empty($evento)) {
+        $evento = mysqli_real_escape_string($con, $evento);
+        $sql .= " AND ev.evento LIKE '%$evento%'";
+    }
+    if (!empty($evento)) {
+        $evento = mysqli_real_escape_string($con, $evento);
+        $sql .= " AND ev.evento LIKE '%$evento%'";
+    }
+ }
+ 
+// Construir la consulta SQL
+
 
 // Verificar si se proporcionó algún criterio de búsqueda
-if (!empty($evento)) {
-    $evento = mysqli_real_escape_string($con, $evento);
-    $sql .= " AND ev.evento LIKE '%$evento%'";
-}
+
 
 if (!empty($descripcion)) {
     $descripcion = mysqli_real_escape_string($con, $descripcion);
@@ -80,10 +105,10 @@ if (!$result) {
 
 <div class="form-group">
     <div class="col-sm-10">
-        <a href="excel.php?id=<?php echo $id_usuario; ?>&evento=<?php echo $evento; ?>&descripcion=<?php echo $descripcion; ?>&fecha_inicio=<?php echo $fecha_inicio; ?>&fecha_fin=<?php echo $fecha_fin; ?>&id_estado=<?php echo $id_estado; ?>&id_etiqueta=<?php echo $id_etiqueta; ?>">
+        <a  href="excel.php?id=<?php echo $id_usuario; ?>&evento=<?php echo $evento; ?>&descripcion=<?php echo $descripcion; ?>&fecha_inicio=<?php echo $fecha_inicio; ?>&fecha_fin=<?php echo $fecha_fin; ?>&id_estado=<?php echo $id_estado; ?>&id_etiqueta=<?php echo $id_etiqueta; ?>">
             <i class="bi bi-filetype-xls" style="font-size: 2rem; color:black;"></i>
         </a>
-        <a href="pdf.php?id=<?php echo $id_usuario; ?>&evento=<?php echo $evento; ?>&descripcion=<?php echo $descripcion; ?>&fecha_inicio=<?php echo $fecha_inicio; ?>&fecha_fin=<?php echo $fecha_fin; ?>&id_estado=<?php echo $id_estado; ?>&id_etiqueta=<?php echo $id_etiqueta; ?>">
+        <a target="_blank" href="pdf.php?&evento=<?php echo $evento; ?>&descripcion=<?php echo $descripcion; ?>&fecha_inicio=<?php echo $fecha_inicio; ?>&fecha_fin=<?php echo $fecha_fin; ?>&id_estado=<?php echo $id_estado; ?>&id_etiqueta=<?php echo $id_etiqueta; ?>">
             <i class="bi bi-file-earmark-pdf" style="font-size: 2rem; color:black;"></i>
         </a>
     </div>
@@ -98,11 +123,9 @@ if (!$result) {
                 <th scope="col">Estado</th>
                 <th scope="col">Etiqueta</th>
                 <th scope="col">Archivos</th>
+                <th scope="col">Descargar</th>
                 <th scope="col">Compartido por</th>
-                <th scope="col">Compartir</th>
-                <th scope="col">Actualizar</th>
-                <th scope="col">Descarga</th>
-                <th scope="col">Borrar</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -120,47 +143,58 @@ if (!$result) {
                         </a>
                     </td>
                     <td data-label="Compartido por:">
-                       <?php
+                    <?php
+                        
                         $compartir = $registro['id'];
-                        $SqlEventos2   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        $SqlEventos6   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
                         inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
                         $id_usuario = $_SESSION['id_usuario'];
-                        $resulEventos2 = mysqli_query($conn, $SqlEventos2);
-
-                        $SqlEventos   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
-                        inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario";
-                  
-                        $resulEventos = mysqli_query($conn, $SqlEventos);
-                        $registro = mysqli_fetch_assoc($resulEventos);
-                        $usuario = $registro['nombre'];
-                while($registro2 = mysqli_fetch_assoc($resulEventos2)) {
-                    $nombre_compartir =$registro2['nombre'];
                      
-                    if($nombre_compartir == $usuario) {
-                        ?>   
-                   <P>Yo</P>
-                   
-                    <?php
-                    } else{
-                        
-                ?>
+                        $resulEventos6 = mysqli_query($conn, $SqlEventos6);
+                        if($usuario == "admin"){
+                            while( $registro6 = mysqli_fetch_assoc($resulEventos6)) {?>
+
+                            <p><?php echo $registro6['nombre'];?></p><?php
+                            }}else{
+                                    $SqlEventos7   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                                    inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario = $id_usuario";
+                            
+                                    $resulEventos7 = mysqli_query($conn, $SqlEventos7);
+                                    $registro7 = mysqli_fetch_assoc($resulEventos7);
+                                    $usuario = $registro7['nombre'];
+                                    
+                            while($registro5 = mysqli_fetch_assoc($resulEventos6)) {
+                                $nombre_compartir =$registro5['nombre'];
+                            
+                                if($nombre_compartir == $usuario) {
+                                    ?>   
+                            <P>Yo</P>
+                            
+                                <?php
+                                } else{
+                                    
+                            ?>
                <div>
-               <p><?php echo $registro2['nombre'];?></p>
-               <a href="deletecompartir.php?id=<?php echo $registro2['id']; ?>&usuario=<?php echo $registro2['id_usuario']; ?>">
-  <i class="bi-trash px-1" style="font-size: 1rem; color:red;"></i>
-</a>               </div>
+                
+               <p><?php echo $registro5['nombre'];?></p>
+                </div>
                 
                 <?php
                 }
-                }
+                }}
                 ?>
                    
                     </td>
-                    
+                    <td data-label="descarga">
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#pdf__individual<?php echo $registro['id']; ?>" data-id="pdf__individual<?php echo $registro['id']; ?>">
+                        <i class="bi bi-download" style="font-size: 2rem; color:blue;"></i>
+                        </a>
+                    </td>
                 </tr>
                 <?php
                 include('modalcompartir.php');
                 include('modalpdf.php');
+                include('modalpdf _individual.php');
                 include('modalarchivo.php');
                 ?>
             <?php } ?>

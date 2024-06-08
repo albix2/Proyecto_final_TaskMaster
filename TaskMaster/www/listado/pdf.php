@@ -6,25 +6,53 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
     exit;
 }
+$evento = $_POST['evento'] ?? '';
 
-$id = $_REQUEST['id'];
 $id_usuario = $_SESSION['id_usuario'];
-
+$sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+$res2 = mysqli_query($con, $sql2);
+$fila = mysqli_fetch_assoc($res2);
+$usuario = $fila['nombre'];
 mysqli_select_db($con, "practicas");
+if ($usuario == "admin"){
+    $sql = "SELECT ev.evento, ev.descripcion,ev.fecha_inicio, ev.fecha_fin, es.nombre_estado, et.nombre_etiqueta
+    FROM eventoscalendar ev 
 
-$sql = "SELECT ev.evento, ev.descripcion, ev.fecha_inicio, ev.fecha_fin, es.nombre_estado, et.nombre_etiqueta
-FROM eventoscalendar ev 
-INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
-INNER JOIN usuario us ON ue.id_usuario = us.id_usuario
-INNER JOIN estado es ON es.id_estado = ev.id_estado
-INNER JOIN etiquetas et ON et.id_etiqueta = ev.id_etiquetas
-WHERE us.id_usuario = $id_usuario";
-
-// Verificar si se proporcionó algún criterio de búsqueda
-if (!empty($_GET['evento'])) {
-    $evento = mysqli_real_escape_string($con, $_GET['evento']);
-    $sql .= " AND ev.evento LIKE '%$evento%'";
+   
+    INNER JOIN estado es ON es.id_estado = ev.id_estado
+    INNER JOIN etiquetas et ON et.id_etiqueta = ev.id_etiquetas
+    WHERE ";
+    if (!empty($_GET['evento'])) {
+        $evento = mysqli_real_escape_string($con, $_GET['evento']);
+        $sql .= " ev.evento LIKE '%$evento%' ";
+    }
+    // Verificar si se proporcionó algún criterio de búsqueda
+if (!empty($_GET['id'])) {
+    $id = mysqli_real_escape_string($con, $_GET['id']);
+    $sql .= " ev.id = $id";
 }
+}
+else{
+   
+    $sql = "SELECT ev.evento, ev.descripcion,ev.fecha_inicio, ev.fecha_fin, es.nombre_estado, et.nombre_etiqueta
+    FROM eventoscalendar ev 
+    INNER JOIN usuario_evento ue ON ue.id_evento = ev.id
+    INNER JOIN usuario us ON ue.id_usuario=us.id_usuario 
+    INNER JOIN estado es ON es.id_estado = ev.id_estado
+    INNER JOIN etiquetas et ON et.id_etiqueta = ev.id_etiquetas
+    WHERE us.id_usuario = $id_usuario ";
+    if (!empty($_GET['evento'])) {
+        $evento = mysqli_real_escape_string($con, $_GET['evento']);
+        $sql .= " AND ev.evento LIKE '%$evento%' ";
+    }
+    if (!empty($_GET['id'])) {
+        $id= $_GET['id'];
+        $id = mysqli_real_escape_string($con, $_GET['id']);
+        $sql .= "AND ev.id = $id";
+    }
+}
+
+
 
 if (!empty($_GET['descripcion'])) {
     $descripcion = mysqli_real_escape_string($con, $_GET['descripcion']);
@@ -85,8 +113,6 @@ while ($row = mysqli_fetch_assoc($resultset)) {
     $pdf->Ln();
 }
 
-// Generar el PDF y enviarlo por WhatsApp
-$pdf_path = '../pdf/'.$id.'.pdf';
-$pdf->Output('F', $pdf_path); // Guardar el PDF
+
 $pdf->Output('I'); // Mostrar el PDF en el navegador
 ?>

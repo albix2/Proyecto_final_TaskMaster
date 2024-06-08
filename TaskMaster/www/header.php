@@ -62,7 +62,10 @@ inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas
 inner join archivos ar on ev.id= ar.id_evento
 where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
 $resulEventos = mysqli_query($conexion, $SqlEventos);
-
+$sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+                $res2 = mysqli_query($conn, $sql2);
+                $fila = mysqli_fetch_assoc($res2);
+                $usuario = $fila['nombre'];
 ?>
 <main class="principal">
     <section class="enlaces">
@@ -85,6 +88,15 @@ $resulEventos = mysqli_query($conexion, $SqlEventos);
            
             <li>
                 <i class="bi bi-person-fill-gear"> <a href="../perfil/perfil.php">Pefil</a></i>
+            </li>
+            <li>
+            <?php
+                    if ($usuario == "admin"){
+            ?>
+                <i class="bi bi-person-fill-gear"> <a href="../user/user.php">usuario</a></i>
+                <?php
+                    }
+                ?>
             </li>
         </ul>
     </section>

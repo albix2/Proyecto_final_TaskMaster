@@ -50,7 +50,22 @@
             events: [
                 <?php
                 include('../login/config.php');
-                $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+                $sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+                $res2 = mysqli_query($conn, $sql2);
+                $fila = mysqli_fetch_assoc($res2);
+                $usuario = $fila['nombre'];
+                if ($usuario == "admin"){
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+            
+                inner join estado es on es.id_estado=ev.id_estado 
+                inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+                -- inner join archivo_evento ae on ae.id_evento = ev.id
+                -- inner join archivos ar on ae.id_archivo= ar.id_archivo
+             "; // Seleccionar solo eventos del usuario actual 
+                $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
+                else{
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
                 inner join usuario_evento ue on ue.id_evento = ev.id
                 inner join usuario us on ue.id_usuario=us.id_usuario 
                 inner join estado es on es.id_estado=ev.id_estado 
@@ -59,6 +74,7 @@
                 -- inner join archivos ar on ae.id_archivo= ar.id_archivo
                 where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual 
                 $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
                
            
                 while($dataEvento = mysqli_fetch_array($resulEventos3)){ ?>
@@ -68,7 +84,6 @@
                         start: '<?php echo $dataEvento['fecha_inicio']; ?>',
                         end:   '<?php echo $dataEvento['fecha_fin']; ?>',
                         color: '<?php echo $dataEvento['color_evento']; ?>',
-                        id_usuario: '<?php echo $dataEvento['id_usuario']; ?>',
                         descripcion: '<?php echo $dataEvento['descripcion']; ?>',
                         id_etiqueta: '<?php echo $dataEvento['id_etiquetas']; ?>',
                         id_estado: '<?php echo $dataEvento['id_estado']; ?>'

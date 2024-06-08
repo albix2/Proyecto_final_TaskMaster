@@ -10,25 +10,43 @@ include('modalNuevoEvento.php');
     <section class="principal-kanban">
         
         <article>
-        
-            <a type="button" data-bs-toggle="modal" data-bs-target="#example2Modal"  >
-                añadir
-            </a>
+        <button type="button" class="btn btn-primary  fs-5" data-bs-toggle="modal" data-bs-target="#example2Modal">
+            Añadir
+            </button>
         </article>
        
         <article class="no_iniciado" id="divPendiente" ondrop="drop(event,'Pendiente')" ondragover="allowDrop(event,'Pendiente')" data-estado="Pendiente">
          <h2 class="fs-5">No iniciado </h2>   
          <?php
                 include('../login/config.php');
-                $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
-                inner join usuario_evento ue on ue.id_evento = ev.id
-                inner join usuario us on ue.id_usuario=us.id_usuario 
-                inner join estado es on es.id_estado=ev.id_estado 
-                inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
-                -- inner join archivo_evento ae on ae.id_evento = ev.id
-                -- inner join archivos ar on ae.id_archivo= ar.id_archivo
-                where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
-                $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+
+                $sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+                $res2 = mysqli_query($conn, $sql2);
+                $fila = mysqli_fetch_assoc($res2);
+                $usuario = $fila['nombre'];
+                if ($usuario == "admin"){
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+                    
+                    inner join estado es on es.id_estado=ev.id_estado 
+                    inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+                    -- inner join archivo_evento ae on ae.id_evento = ev.id
+                    -- inner join archivos ar on ae.id_archivo= ar.id_archivo
+                   "; // Seleccionar solo eventos del usuario actual
+                    $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
+                else{
+                    $SqlEventos3  = "SELECT * FROM eventoscalendar ev 
+                    inner join usuario_evento ue on ue.id_evento = ev.id
+                    inner join usuario us on ue.id_usuario=us.id_usuario 
+                    inner join estado es on es.id_estado=ev.id_estado 
+                    inner join etiquetas et on et.id_etiqueta=ev.id_etiquetas 
+                    -- inner join archivo_evento ae on ae.id_evento = ev.id
+                    -- inner join archivos ar on ae.id_archivo= ar.id_archivo
+                    where us.id_usuario = $id_usuario"; // Seleccionar solo eventos del usuario actual
+                    $resulEventos3 = mysqli_query($conexion, $SqlEventos3);
+                }
+
+              
 
 ?>
           <?php
@@ -39,7 +57,7 @@ include('modalNuevoEvento.php');
                         ?>   
                      
                  <a id="<?php echo $registro['id']; ?>" data-estado="Pendiente" ondragstart="drag(event,'Pendiente')" draggable="true"  data-bs-toggle="modal" data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <P><?php echo $registro['evento']; ?></P>
+                 <P style=" background-color: <?php echo $registro['color_evento']; ?>;color:#fff;"><?php echo $registro['evento']; ?></P>
          </a>
                        
                     
@@ -65,9 +83,20 @@ include('modalNuevoEvento.php');
             
          <h2 class="fs-5">En curso</h2> 
          <?php
-          $SqlEventos3  = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
-          inner join usuario us on ue.id_usuario=us.id_usuario inner join estado es on es.id_estado = ev.id_estado WHERE ue.id_usuario = $id_usuario";
-          $resulEventos3 = mysqli_query($conn, $SqlEventos3); 
+         $sql3 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+         $res3 = mysqli_query($conn, $sql3);
+         $fila3 = mysqli_fetch_assoc($res3);
+         $usuario3 = $fila3['nombre'];
+         if ($usuario3 == "admin"){
+            $SqlEventos3  = "SELECT * FROM eventoscalendar ev  inner join estado es on es.id_estado = ev.id_estado ";
+            $resulEventos3 = mysqli_query($conn, $SqlEventos3); 
+        }
+        else{
+            $SqlEventos3  = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+            inner join usuario us on ue.id_usuario=us.id_usuario inner join estado es on es.id_estado = ev.id_estado WHERE ue.id_usuario = $id_usuario";
+            $resulEventos3 = mysqli_query($conn, $SqlEventos3); 
+        }
+          
         while($registro = mysqli_fetch_assoc($resulEventos3)) {
             $estado =$registro['nombre_estado'];
            
@@ -75,7 +104,7 @@ include('modalNuevoEvento.php');
             ?>  
            
            <a id="<?php echo $registro['id']; ?>"data-estado="En proceso" ondragstart="drag(event,'En proceso')" draggable="true" data-bs-toggle="modal"  data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <P><?php echo $registro['evento']; ?></P>
+           <P style=" background-color: <?php echo $registro['color_evento']; ?>;color:#fff;"><?php echo $registro['evento']; ?></P>
           </a> 
                        
                     
@@ -102,17 +131,28 @@ include('modalNuevoEvento.php');
         <article class="completado"id="divCompletado" ondrop="drop(event,'Completado')" ondragover="allowDrop(event,'Completado')" data-estado="Completado">
             <h2 class="fs-5">Completado</h2> 
             <?php
-          $SqlEventos2  = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
-          inner join usuario us on ue.id_usuario=us.id_usuario inner join estado es on es.id_estado = ev.id_estado WHERE ue.id_usuario = $id_usuario";
-          $resulEventos2 = mysqli_query($conn, $SqlEventos2); 
+            $sql2 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+            $res2 = mysqli_query($conn, $sql2);
+            $fila2 = mysqli_fetch_assoc($res2);
+            $usuario2 = $fila3['nombre'];
+            if ($usuario2 == "admin"){
+                $SqlEventos2  = "SELECT * FROM eventoscalendar ev  inner join estado es on es.id_estado = ev.id_estado ";
+                $resulEventos2 = mysqli_query($conn, $SqlEventos2);  
+            }
+            else{
+                $SqlEventos2  = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                inner join usuario us on ue.id_usuario=us.id_usuario inner join estado es on es.id_estado = ev.id_estado WHERE ue.id_usuario = $id_usuario";
+                $resulEventos2 = mysqli_query($conn, $SqlEventos2); 
+            }
+         
         while($registro = mysqli_fetch_assoc($resulEventos2)) {
             $estado =$registro['nombre_estado'];
         if($estado== "Completado" ) {
                         ?>   
                         
                    <a id="<?php echo $registro['id']; ?>" data-estado="Completado" ondragstart="drag(event,'Completado')" ondragstart="drag(event)" draggable="true"    data-bs-toggle="modal" data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <P><?php echo $registro['evento']; ?></P>
-        </a> 
+                   <P style=" background-color: <?php echo $registro['color_evento']; ?>;color:#fff;"><?php echo $registro['evento']; ?></P>
+
                         
                         <?php  
 
@@ -137,16 +177,27 @@ include('modalUpdateEvento.php');
          <h2  class="fs-5">Detenido</h2>  
           
          <?php
-             $SqlEventos4   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+         $sql4 = "SELECT * FROM usuario where id_usuario='$id_usuario' ";
+         $res4 = mysqli_query($conn, $sql4);
+         $fila4 = mysqli_fetch_assoc($res4);
+         $usuario4 = $fila3['nombre'];
+         if ($usuario4 == "admin"){
+            $SqlEventos4   = "SELECT * FROM eventoscalendar ev  inner join estado es on es.id_estado = ev.id_estado";
+            $resulEventos4 = mysqli_query($conn, $SqlEventos4);  
+            }
+            else{
+                $SqlEventos4   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
              inner join usuario us on ue.id_usuario=us.id_usuario inner join estado es on es.id_estado = ev.id_estado WHERE ue.id_usuario = $id_usuario";
-             $resulEventos4 = mysqli_query($conn, $SqlEventos4); 
+             $resulEventos4 = mysqli_query($conn, $SqlEventos4);
+            }
+              
         while($registro = mysqli_fetch_assoc($resulEventos4)) {
             $estado =$registro['nombre_estado'];
         if($estado== "Detenido") {
                         ?>  
                       
                       <a id="<?php echo $registro['id']; ?>"data-estado="Detenido" ondragstart="drag(event,'Detenido')" draggable="true" data-bs-toggle="modal"  data-bs-target="#actualizarevento_<?php echo $registro['id']; ?>" data-id="<?php echo $registro['id']; ?>">
-                            <P><?php echo $registro['evento']; ?></P>
+                      <P style=" background-color: <?php echo $registro['color_evento']; ?>;color:#fff;"><?php echo $registro['evento']; ?></P>
                      </a>    
                    
                     <?php  

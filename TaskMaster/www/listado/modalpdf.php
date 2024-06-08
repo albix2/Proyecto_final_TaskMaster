@@ -11,14 +11,13 @@
         ?>
         <input type="hidden" id="datoNombre" class="form-control" name="idEvento" value="<?php echo $registro['id']; ?>">      
         <div class="form-group">
+         
+            
           <div class="col-sm-10">
-            <a href="excel.php?id=<?php echo $registro['id']; ?>&evento=<?php echo $registro['evento']; ?>&descripcion=<?php echo $registro['descripcion']; ?>&fecha_inicio=<?php echo $registro['fecha_inicio']; ?>&fecha_fin=<?php echo $registro['fecha_fin']; ?>&nombre_estado=<?php echo $registro['nombre_estado']; ?>&nombre_etiqueta=<?php echo $registro['nombre_etiqueta']; ?>&evento=<?php echo $registro['evento']; ?>">
-              <i class="bi bi-filetype-xls" style="font-size: 2rem; color:black;"></i>
-            </a>
-            <a href="pdf.php?id=<?php echo $registro['id']; ?>&evento=<?php echo $registro['evento']; ?>&descripcion=<?php echo $registro['descripcion']; ?>&fecha_inicio=<?php echo $registro['fecha_inicio']; ?>&fecha_fin=<?php echo $registro['fecha_fin']; ?>&nombre_estado=<?php echo $registro['nombre_estado']; ?>&nombre_etiqueta=<?php echo $registro['nombre_etiqueta']; ?>&evento=<?php echo $registro['evento']; ?>">
-              <i class="bi bi-file-earmark-pdf" style="font-size: 2rem; color:black;"></i>
-            </a>
+            <a href="excel.php?id=<?php echo $registro['id']; ?>" target="_blank"><i class="bi bi-filetype-xls" style="font-size: 2rem; color:black;"></i></a>
+            <a href="pdf.php?id=<?php echo $registro['id']; ?>" target="_blank"><i class="bi bi-file-earmark-pdf" style="font-size: 2rem; color:black;"></i></a>
           </div>
+        
         </div>
        
       </div>

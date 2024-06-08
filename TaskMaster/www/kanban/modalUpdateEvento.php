@@ -115,25 +115,32 @@ if ($registro = mysqli_fetch_assoc($registros)) {
     <small id="helpId" class="form-text text-muted">color</small>
   </div>
   </div>
+
   <label for="compartido" class="form-label"><b>compartido por : </b></label>
 
   <?php
                         $compartir = $registro['id'];
-                        $SqlEventos3   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+                        $SqlEventos6   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
                         inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir ";
                         $id_usuario = $_SESSION['id_usuario'];
-                        $resulEventos3 = mysqli_query($conn, $SqlEventos3);
+                     
+                        $resulEventos6 = mysqli_query($conn, $SqlEventos6);
+                       
+if($usuario == "admin"){
+  while( $registro6 = mysqli_fetch_assoc($resulEventos6)) {?>
 
-                        $SqlEventos4   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
+  <p><?php echo $registro6['nombre'];?></p><?php
+}}else{
+                        $SqlEventos7   = "SELECT * FROM eventoscalendar ev inner join usuario_evento ue on ue.id_evento = ev.id
                         inner join usuario us on ue.id_usuario=us.id_usuario WHERE ev.id = $compartir and us.id_usuario = $id_usuario";
                   
-                        $resulEventos4 = mysqli_query($conn, $SqlEventos4);
-                        $registro4 = mysqli_fetch_assoc($resulEventos4);
-                        $usuario = $registro4['nombre'];
+                        $resulEventos7 = mysqli_query($conn, $SqlEventos7);
+                        $registro7 = mysqli_fetch_assoc($resulEventos7);
+                        $usuario = $registro7['nombre'];
                         
-                while($registro2 = mysqli_fetch_assoc($resulEventos3)) {
-                    $nombre_compartir =$registro2['nombre'];
-                     
+                while($registro5 = mysqli_fetch_assoc($resulEventos6)) {
+                    $nombre_compartir =$registro5['nombre'];
+                   
                     if($nombre_compartir == $usuario) {
                         ?>   
                    <P>Yo</P>
@@ -144,12 +151,12 @@ if ($registro = mysqli_fetch_assoc($registros)) {
                 ?>
                <div>
                 
-               <p><?php echo $registro2['nombre'];?></p>
+               <p><?php echo $registro5['nombre'];?></p>
                 </div>
                 
                 <?php
                 }
-                }
+                }}
                 ?>
 
         <!-- Campo oculto para almacenar la ruta del archivo actual -->

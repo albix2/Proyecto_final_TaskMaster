@@ -21,9 +21,9 @@
 		</div>
 
     <div class="form-group">
-			<label for="descripcion" class="col-sm-12 control-label">Nombre del descripcion</label>
+			<label for="descripcion" class="col-sm-12 control-label">Descripcion</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Nombre del descripcion" required/>
+				<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion" required/>
 			</div>
 		</div>
 
@@ -31,7 +31,7 @@
       <label for="" class="col-sm-12  form-label">Nombre de la etiqueta</label>
       <div class="col-sm-10">
       <select name="id_etiqueta" class="form-control">
-          <option selected disabled>Seleccione la categoria</option>
+          <option selected disabled>Seleccione la etiqueta</option>
           <?php
           include("config.php");
           mysqli_select_db($con, "practicas");
@@ -56,7 +56,7 @@
       <label for="" class="col-sm-12 form-label">Estado</label>
       <div class="col-sm-10">
       <select name="id_estado" class="form-control">
-          <option selected disabled>Seleccione la categoria</option>
+          <option selected disabled>Seleccione el estado</option>
           <?php
           include("config.php");
           mysqli_select_db($con, "practicas");
@@ -93,11 +93,11 @@
   
 
   <div class="form-group">
-    <label for="color" class="col-sm-12  form-label">color </label>
+    <label for="color" class="col-sm-12  form-label">Color </label>
     <div class="col-sm-10">
     <input type="color"
       class="form-control" name="color" id="color"  required aria-describedby="helpId" placeholder="color">
-    <small id="helpId" class="form-text text-muted">color</small>
+    <small id="helpId" class="form-text text-muted">Color</small>
   </div>
   </div>
  
